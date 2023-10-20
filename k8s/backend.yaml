@@ -3,6 +3,7 @@ kind: Deployment
 spec:
     template:
         metadata:
+            name: default
             labels:
                 app: backend
         spec:
