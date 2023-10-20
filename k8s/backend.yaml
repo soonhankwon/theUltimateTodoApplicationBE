@@ -1,17 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend  # 이 부분에서 이름을 지정해야 합니다.
+  name: backend-deployment
 spec:
-    template:
-        metadata:
-            labels:
-                app: backend
-        spec:
-            containers:
-                - name: backend
-                  # 여러분의 image 주소를 입력해주세요.
-                  image: krmp-d2hub-idock.9rum.cc/dev-test/repo_941daa778d83:latest
-                  imagePullPolicy: Always
-                  ports:
-                      - containerPort: 8080
+  replicas: 3  # 필요한 수로 변경하세요
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_941daa778d83:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
