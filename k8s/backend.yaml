@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend-deployment
 spec:
-  replicas: 3  # 필요한 수로 변경하세요
+  replicas: 1  # 필요한 수로 변경하세요
   selector:
     matchLabels:
       app: backend
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_01a2556e2645
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_a56c93c2fa7d
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
