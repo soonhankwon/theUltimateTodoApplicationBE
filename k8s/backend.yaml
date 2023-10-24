@@ -6,14 +6,14 @@ spec:
   replicas: 1  # 필요한 수로 변경하세요
   selector:
     matchLabels:
-      app: backend
+      app: backend-deployment
   template:
     metadata:
       labels:
-        app: backend
+        app: backend-deployment
     spec:
       containers:
-        - name: backend
+        - name: backend-deployment
           image: krmp-d2hub-idock.9rum.cc/dev-test/repo_d144b3216ea4
           imagePullPolicy: Always
           ports:
