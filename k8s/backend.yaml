@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: ultimateTodo
 spec:
   replicas: 1  # 필요한 수로 변경하세요
   selector:
     matchLabels:
-      app: backend-deployment
+      app: backend
   template:
     metadata:
       labels:
-        app: backend-deployment
+        app: backend
     spec:
       containers:
-        - name: backend-deployment
+        - name: backend
           image: krmp-d2hub-idock.9rum.cc/dev-test/repo_d144b3216ea4
           imagePullPolicy: Always
           ports:
