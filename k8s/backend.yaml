@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ultimatetodo
+  name: backend
 spec:
   replicas: 1  # 필요한 수로 변경하세요
   selector:
@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: ultimatetodo
+        app: backend
     spec:
       containers:
         - name: backend
