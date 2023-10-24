@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ultimateTodo
+  name: ultimatetodo
 spec:
   replicas: 1  # 필요한 수로 변경하세요
   selector:
