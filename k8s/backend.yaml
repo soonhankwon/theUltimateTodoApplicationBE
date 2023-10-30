@@ -11,17 +11,16 @@ spec:
   template:
     metadata:
       labels:
-        app: backend
+        app: backend                    
     spec:
       containers:
         - name: backend
           image: krmp-d2hub-idock.9rum.cc/dev-test/repo_d144b3216ea4
-          imagePullPolicy: Always
           ports:
             - containerPort: 8080
-        env:
-           - name: SECRET_LOG_LEVEL
+          env:
+            - name: SECRET_LOG_LEVEL
               valueFrom:
-                secretKeyRef: 
+                secretKeyRef:
                   name: loglevel-secret
                   key: loglevel
