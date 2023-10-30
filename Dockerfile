@@ -10,7 +10,7 @@ COPY src ./src
 RUN gradle clean build
 
 # 런타임 이미지 설정
-FROM openjdk:17.0.7-jdk
+FROM amazoncorretto:17
 
 # 메타데이터 설정
 LABEL authors="KangShinGyu"
