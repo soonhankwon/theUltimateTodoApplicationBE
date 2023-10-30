@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-23T03:59:43" hostname="krampoline" time="2.389">
+<testsuite name="com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-30T13:49:03" hostname="krampoline" time="1.434">
   <properties/>
-  <testcase name="contextLoads()" classname="com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests" time="2.389"/>
-  <system-out><![CDATA[03:59:32.351 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests]: TheUltimateTodoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-03:59:32.676 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.projectss.theUltimateTodo.TheUltimateTodoApplication for test class com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests
+  <testcase name="contextLoads()" classname="com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests" time="1.434"/>
+  <system-out><![CDATA[13:48:53.470 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests]: TheUltimateTodoApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:48:53.942 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.projectss.theUltimateTodo.TheUltimateTodoApplication for test class com.projectss.theUltimateTodo.TheUltimateTodoApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,26 +13,12 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.1.5)
 
-2023-10-23T03:59:33.950Z  INFO 15787 --- [    Test worker] c.p.t.TheUltimateTodoApplicationTests    : Starting TheUltimateTodoApplicationTests using Java 17.0.7 with PID 15787 (started by root in /workspace/theUltimateTodoAppli)
-2023-10-23T03:59:33.954Z  INFO 15787 --- [    Test worker] c.p.t.TheUltimateTodoApplicationTests    : No active profile set, falling back to 1 default profile: "default"
-2023-10-23T03:59:35.948Z  INFO 15787 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-10-23T03:59:35.951Z  INFO 15787 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
-2023-10-23T03:59:36.035Z  INFO 15787 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 0 JDBC repository interfaces.
-2023-10-23T03:59:36.051Z  INFO 15787 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
-2023-10-23T03:59:36.052Z  INFO 15787 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-10-23T03:59:36.060Z  INFO 15787 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
-2023-10-23T03:59:37.631Z  INFO 15787 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-10-23T03:59:37.751Z  INFO 15787 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
-2023-10-23T03:59:37.754Z  INFO 15787 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
-2023-10-23T03:59:38.470Z  INFO 15787 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2023-10-23T03:59:38.557Z  INFO 15787 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-10-23T03:59:39.239Z  INFO 15787 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:demo user=SA
-2023-10-23T03:59:39.241Z  INFO 15787 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-10-23T03:59:40.641Z  INFO 15787 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2023-10-23T03:59:40.648Z  INFO 15787 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-10-23T03:59:41.172Z  WARN 15787 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-10-23T03:59:43.334Z  INFO 15787 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:demo'
-2023-10-23T03:59:43.532Z  INFO 15787 --- [    Test worker] c.p.t.TheUltimateTodoApplicationTests    : Started TheUltimateTodoApplicationTests in 10.283 seconds (process running for 14.284)
+2023-10-30T13:48:55.261Z DEBUG 10257 --- [    Test worker] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2b87581
+2023-10-30T13:49:02.345Z  WARN 10257 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-30T13:49:02.947Z DEBUG 10257 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-10-30T13:49:03.164Z DEBUG 10257 --- [    Test worker] s.w.s.m.m.a.RequestMappingHandlerMapping : 5 mappings in 'requestMappingHandlerMapping'
+2023-10-30T13:49:03.253Z DEBUG 10257 --- [    Test worker] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2023-10-30T13:49:03.264Z DEBUG 10257 --- [    Test worker] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

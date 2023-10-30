@@ -1,5 +1,5 @@
 # Gradle 이미지를 사용하여 빌드 환경 설정
-FROM gradle:7.3.0-jdk17 AS builder
+FROM gradle:8.2.1-jdk17 AS builder
 WORKDIR /app
 
 # 소스 코드와 빌드 파일을 이미지 내로 복사
@@ -10,7 +10,7 @@ COPY src ./src
 RUN gradle clean build
 
 # 런타임 이미지 설정
-FROM openjdk:17-jdk
+FROM openjdk:17.0.7-jdk
 
 # 메타데이터 설정
 LABEL authors="KangShinGyu"
