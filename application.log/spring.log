@@ -1,0 +1,45 @@
+2023-10-30T12:31:41.079+09:00  WARN 24148 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-30T12:31:41.204+09:00 DEBUG 24148 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-10-30T12:31:41.330+09:00 DEBUG 24148 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'
+2023-10-30T12:31:41.362+09:00 DEBUG 24148 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2023-10-30T12:31:41.378+09:00 DEBUG 24148 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-10-30T12:33:08.201+09:00  INFO 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-30T12:33:08.201+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2023-10-30T12:33:08.202+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2023-10-30T12:33:08.202+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2023-10-30T12:33:08.203+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@83e635f
+2023-10-30T12:33:08.203+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@7e89eba7
+2023-10-30T12:33:08.203+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-10-30T12:33:08.203+09:00  INFO 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-10-30T12:33:08.215+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/test2", parameters={}
+2023-10-30T12:33:08.230+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.projectss.theUltimateTodo.Controller.TestController#test2()
+2023-10-30T12:33:08.323+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Using 'text/html', given [text/html, application/xhtml+xml, image/avif, image/webp, image/apng, application/xml;q=0.9, */*;q=0.8, application/signed-exchange;v=b3;q=0.7] and supported [text/plain, */*, application/json, application/*+json]
+2023-10-30T12:33:08.324+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Writing ["Hello World!"]
+2023-10-30T12:33:08.341+09:00 DEBUG 24148 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-30T12:33:10.653+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/test", parameters={}
+2023-10-30T12:33:10.654+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.projectss.theUltimateTodo.Controller.TestController#test(String)
+2023-10-30T12:33:10.666+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
+2023-10-30T12:33:10.670+09:00  WARN 24148 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public java.lang.String com.projectss.theUltimateTodo.Controller.TestController.test(java.lang.String)]
+2023-10-30T12:33:10.671+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2023-10-30T12:33:10.677+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2023-10-30T12:33:10.679+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2023-10-30T12:33:10.717+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, text/html;q=0.8]
+2023-10-30T12:33:10.723+09:00 DEBUG 24148 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 400
+2023-10-30T12:33:10.862+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/test", parameters={}
+2023-10-30T12:33:10.863+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.projectss.theUltimateTodo.Controller.TestController#test(String)
+2023-10-30T12:33:10.865+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] m.m.a.RequestResponseBodyMethodProcessor : Read "application/octet-stream" to []
+2023-10-30T12:33:10.866+09:00  WARN 24148 --- [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public java.lang.String com.projectss.theUltimateTodo.Controller.TestController.test(java.lang.String)]
+2023-10-30T12:33:10.866+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2023-10-30T12:33:10.866+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2023-10-30T12:33:10.868+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#errorHtml(HttpServletRequest, HttpServletResponse)
+2023-10-30T12:33:10.873+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] o.s.w.s.v.ContentNegotiatingViewResolver : Selected 'text/html' given [text/html, text/html;q=0.8]
+2023-10-30T12:33:10.874+09:00 DEBUG 24148 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 400
+2023-10-30T12:33:28.109+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : GET "/", parameters={}
+2023-10-30T12:33:28.114+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]
+2023-10-30T12:33:28.116+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.w.s.r.ResourceHttpRequestHandler     : Resource not found
+2023-10-30T12:33:28.117+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 404 NOT_FOUND
+2023-10-30T12:33:28.117+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2023-10-30T12:33:28.118+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController#error(HttpServletRequest)
+2023-10-30T12:33:28.129+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2023-10-30T12:33:28.129+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Mon Oct 30 12:33:28 KST 2023, status=404, error=Not Found, path=/}]
+2023-10-30T12:33:28.168+09:00 DEBUG 24148 --- [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 404
