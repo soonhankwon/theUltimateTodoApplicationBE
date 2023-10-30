@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 public class TestController {
+    
+    @GetMapping("/")
+    public String main(){
+        return "hello world!";
+    }
     @GetMapping("/test")
     public String test(@RequestBody String body) {
         log.info("TestController.test() called");
