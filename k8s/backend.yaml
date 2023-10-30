@@ -20,8 +20,8 @@ spec:
           ports:
             - containerPort: 8080
         env:
-        - name: SECRET_LOG_LEVEL
-          valueFrom:
-            secretKeyRef: 
-              name: loglevel-secret
-              key: loglevel
+            - name: SECRET_LOG_LEVEL
+              valueFrom:
+                secretKeyRef: 
+                  name: loglevel-secret
+                  key: loglevel
