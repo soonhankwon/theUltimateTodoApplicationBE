@@ -1,11 +1,11 @@
-FROM gradle:8.2.1-jdk17 AS builder
+FROM openjdk:17 AS builder
 
-# 소스 코드와 빌드 파일을 이미지 내로 복사
-COPY build.gradle .
-COPY src ./src
+# 소스 코드와 Gradle Wrapper 파일을 이미지 내로 복사
+COPY . .
 
-# Gradle 빌드 실행
-RUN gradle clean build
+# 실행 권한 설정 및 Gradle 빌드 실행
+RUN chmod +x ./gradlew
+RUN ./gradlew clean build
 
 FROM amazoncorretto:17
 LABEL authors="KangShinGyu"
