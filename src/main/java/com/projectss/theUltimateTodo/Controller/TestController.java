@@ -14,9 +14,9 @@ public class TestController {
         return "hello world!";
     }
 
-    @GetMapping("/test2")
-    public String test2() {
+    @GetMapping("/test")
+    public String test() {
         log.info("TestController.test2() called");
-        return "Hello World!";
+        return "bye World!";
     }
 }
