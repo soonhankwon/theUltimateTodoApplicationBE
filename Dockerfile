@@ -1,4 +1,3 @@
-FROM openjdk:17 AS builder
 
 # 소스 코드와 Gradle Wrapper 파일을 이미지 내로 복사
 COPY . .
