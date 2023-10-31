@@ -24,4 +24,4 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: loglevel-secret
-                  key: data.loglevel
+                  key: loglevel
