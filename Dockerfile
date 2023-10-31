@@ -1,5 +1,6 @@
 FROM amazoncorretto:17
 LABEL authors="KangShinGyu"
+
 COPY build.gradle .
 COPY src ./src
 
