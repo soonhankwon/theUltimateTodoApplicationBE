@@ -1007,3 +1007,76 @@ Caused by: java.lang.IllegalArgumentException: No enum constant org.springframew
 	at org.springframework.core.convert.support.ConversionUtils.invokeConverter(ConversionUtils.java:41) ~[spring-core-6.0.13.jar:6.0.13]
 	... 137 common frames omitted
 
+2023-10-31T19:09:58.396+09:00  INFO 21380 --- [main] c.p.t.TheUltimateTodoApplication         : Starting TheUltimateTodoApplication using Java 17.0.7 with PID 21380 (C:\Users\rkdtl\Desktop\theUltimateTodoApplicationBE\build\classes\java\main started by rkdtl in C:\Users\rkdtl\Desktop\theUltimateTodoApplicationBE)
+2023-10-31T19:09:58.399+09:00  INFO 21380 --- [main] c.p.t.TheUltimateTodoApplication         : No active profile set, falling back to 1 default profile: "default"
+2023-10-31T19:09:59.397+09:00  INFO 21380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-10-31T19:09:59.399+09:00  INFO 21380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-10-31T19:09:59.421+09:00  INFO 21380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 0 JDBC repository interfaces.
+2023-10-31T19:09:59.431+09:00  INFO 21380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-10-31T19:09:59.433+09:00  INFO 21380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-10-31T19:09:59.440+09:00  INFO 21380 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 0 JPA repository interfaces.
+2023-10-31T19:10:00.118+09:00  INFO 21380 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-10-31T19:10:00.131+09:00  INFO 21380 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-10-31T19:10:00.132+09:00  INFO 21380 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.15]
+2023-10-31T19:10:00.259+09:00  INFO 21380 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-10-31T19:10:00.260+09:00  INFO 21380 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1795 ms
+2023-10-31T19:10:00.419+09:00  INFO 21380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-10-31T19:10:00.712+09:00  INFO 21380 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:6a4f9607-b9ce-4366-a535-b5ff8942e6b0 user=SA
+2023-10-31T19:10:00.715+09:00  INFO 21380 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-10-31T19:10:00.770+09:00  INFO 21380 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-10-31T19:10:00.871+09:00  INFO 21380 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2023-10-31T19:10:00.874+09:00  INFO 21380 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-10-31T19:10:01.337+09:00  INFO 21380 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-10-31T19:10:01.858+09:00  INFO 21380 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2023-10-31T19:10:01.865+09:00  INFO 21380 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-10-31T19:10:02.030+09:00  WARN 21380 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-10-31T19:10:02.170+09:00 DEBUG 21380 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-10-31T19:10:02.286+09:00 DEBUG 21380 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 8 mappings in 'requestMappingHandlerMapping'
+2023-10-31T19:10:02.942+09:00 DEBUG 21380 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**, /swagger-ui*/*swagger-initializer.js, /swagger-ui*/**] in 'resourceHandlerMapping'
+2023-10-31T19:10:02.950+09:00 DEBUG 21380 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-10-31T19:10:03.264+09:00  INFO 21380 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-10-31T19:10:03.274+09:00  INFO 21380 --- [main] c.p.t.TheUltimateTodoApplication         : Started TheUltimateTodoApplication in 5.525 seconds (process running for 7.392)
+2023-10-31T19:11:45.979+09:00  INFO 21380 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-10-31T19:11:45.982+09:00  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-10-31T19:11:45.982+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2023-10-31T19:11:45.983+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2023-10-31T19:11:45.983+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
+2023-10-31T19:11:45.986+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@11120583
+2023-10-31T19:11:45.986+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@4e3ee457
+2023-10-31T19:11:45.987+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2023-10-31T19:11:45.988+09:00  INFO 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2023-10-31T19:11:46.009+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/index.html", parameters={}
+2023-10-31T19:11:46.031+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.165+09:00 DEBUG 21380 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2023-10-31T19:11:46.186+09:00 DEBUG 21380 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-ui.css", parameters={}
+2023-10-31T19:11:46.190+09:00 DEBUG 21380 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.194+09:00 DEBUG 21380 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-initializer.js", parameters={}
+2023-10-31T19:11:46.196+09:00 DEBUG 21380 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2023-10-31T19:11:46.195+09:00 DEBUG 21380 --- [http-nio-8080-exec-3] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.198+09:00 DEBUG 21380 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/index.css", parameters={}
+2023-10-31T19:11:46.204+09:00 DEBUG 21380 --- [http-nio-8080-exec-2] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.207+09:00 DEBUG 21380 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-ui-standalone-preset.js", parameters={}
+2023-10-31T19:11:46.209+09:00 DEBUG 21380 --- [http-nio-8080-exec-5] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.210+09:00 DEBUG 21380 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/swagger-ui-bundle.js", parameters={}
+2023-10-31T19:11:46.211+09:00 DEBUG 21380 --- [http-nio-8080-exec-6] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.213+09:00 DEBUG 21380 --- [http-nio-8080-exec-5] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2023-10-31T19:11:46.213+09:00 DEBUG 21380 --- [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2023-10-31T19:11:46.213+09:00 DEBUG 21380 --- [http-nio-8080-exec-6] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2023-10-31T19:11:46.294+09:00 DEBUG 21380 --- [http-nio-8080-exec-3] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-31T19:11:46.387+09:00 DEBUG 21380 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs/swagger-config", parameters={}
+2023-10-31T19:11:46.391+09:00 DEBUG 21380 --- [http-nio-8080-exec-7] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springdoc.webmvc.ui.SwaggerConfigResource#openapiJson(HttpServletRequest)
+2023-10-31T19:11:46.393+09:00 DEBUG 21380 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : GET "/swagger-ui/favicon-32x32.png", parameters={}
+2023-10-31T19:11:46.398+09:00 DEBUG 21380 --- [http-nio-8080-exec-8] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped to ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]]
+2023-10-31T19:11:46.408+09:00 DEBUG 21380 --- [http-nio-8080-exec-8] o.s.web.servlet.DispatcherServlet        : Completed 304 NOT_MODIFIED
+2023-10-31T19:11:46.429+09:00 DEBUG 21380 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [*/*] and supported [application/json]
+2023-10-31T19:11:46.431+09:00 DEBUG 21380 --- [http-nio-8080-exec-7] m.m.a.RequestResponseBodyMethodProcessor : Writing [{configUrl=/v3/api-docs/swagger-config, oauth2RedirectUrl=http://localhost:8080/swagger-ui/oauth2-re (truncated)...]
+2023-10-31T19:11:46.447+09:00 DEBUG 21380 --- [http-nio-8080-exec-7] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-31T19:11:46.468+09:00 DEBUG 21380 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : GET "/v3/api-docs", parameters={}
+2023-10-31T19:11:46.470+09:00 DEBUG 21380 --- [http-nio-8080-exec-9] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson(HttpServletRequest, String, Locale)
+2023-10-31T19:11:46.786+09:00  INFO 21380 --- [http-nio-8080-exec-9] o.springdoc.api.AbstractOpenApiResource  : Init duration for springdoc-openapi is: 293 ms
+2023-10-31T19:11:46.801+09:00 DEBUG 21380 --- [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Using 'application/json', given [application/json, */*] and supported [application/json]
+2023-10-31T19:11:46.802+09:00 DEBUG 21380 --- [http-nio-8080-exec-9] m.m.a.RequestResponseBodyMethodProcessor : Writing ["{"openapi":"3.0.1","info":{"title":"Project 6s - IDE Project","description":"this APIs are consist o (truncated)..."]
+2023-10-31T19:11:46.802+09:00 DEBUG 21380 --- [http-nio-8080-exec-9] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
+2023-10-31T19:12:42.904+09:00  INFO 21380 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-10-31T19:12:42.909+09:00  INFO 21380 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-10-31T19:12:42.911+09:00  INFO 21380 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
