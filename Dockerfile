@@ -1,6 +1,4 @@
-FROM amazoncorretto:17
-LABEL authors="KangShinGyu"
-
+FROM gradle:8.2.1-jdk17 AS builder
 
 # 소스 코드와 빌드 파일을 이미지 내로 복사
 COPY build.gradle .
@@ -8,6 +6,9 @@ COPY src ./src
 
 # Gradle 빌드 실행
 RUN gradle clean build
+
+FROM amazoncorretto:17
+LABEL authors="KangShinGyu"
 
 ARG JAR_FILE=build/libs/theUltimateTodo-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} app.jar
