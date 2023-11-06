@@ -4,7 +4,8 @@
 # ENTRYPOINT ["java","-jar","/app.jar"]
 
 
-FROM amazoncorretto:17
+# FROM amazoncorretto:17
+FROM openjdk:17-slim
 LABEL authors="KangShinGyu"
 # 작업 디렉터리 설정
 WORKDIR /app
