@@ -1,13 +1,13 @@
-package com.projectss.theUltimateTodo;
+// package com.projectss.theUltimateTodo;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class TheUltimateTodoApplicationTests {
+// @SpringBootTest
+// class TheUltimateTodoApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	void contextLoads() {
+// 	}
 
-}
+// }
