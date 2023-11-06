@@ -1,7 +1,7 @@
 
 
 
-남의 도커파일
+
 FROM openjdk:17-slim
 # 작업 디렉터리 설정
 WORKDIR /app
