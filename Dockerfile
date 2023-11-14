@@ -1,7 +1,5 @@
 
 
-
-
 FROM openjdk:17-slim
 # 작업 디렉터리 설정
 WORKDIR /app
@@ -19,4 +17,3 @@ RUN ./gradlew clean build
 ENV DATABASE_URL=jdbc:mariadb://mariadb/krampoline
 # 빌드 결과 jar 파일을 실행
 CMD ["java", "-jar", "/app/build/libs/theUltimateTodo-0.0.1-SNAPSHOT.jar"]
-

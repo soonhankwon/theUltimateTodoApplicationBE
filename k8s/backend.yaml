@@ -15,23 +15,13 @@ spec:
     spec:
       containers:
         - name: backend
-          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_9b5b81b53155
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_92f8bf1b1d74:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
           env:
-            - name: SECRET_LOG_LEVEL
+            - name: SECRET_APPLICATION_PROPERTIES
               valueFrom:
                 secretKeyRef:
-                  name: loglevel-secret
-                  key: loglevel
-            - name: SECRET_MONGO_DB_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-db
-                  key: database
-            - name: SECRET_MONGO_DB_URI
-              valueFrom:
-                secretKeyRef:
-                  name: mongo-db
-                  key: uri
+                  name: application
+                  key: application
