@@ -1,7 +1,12 @@
+
+package com.projectss.theUltimateTodo.config;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.InetSocketAddress;
 
 @Configuration
 public class ProxyConfig {
