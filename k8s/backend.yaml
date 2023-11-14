@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: backend
+spec:
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_92f8bf1b1d74:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SECRET_APPLICATION_PROPERTIES
+              valueFrom:
+                secretKeyRef:
+                  name: application
+                  key: application
