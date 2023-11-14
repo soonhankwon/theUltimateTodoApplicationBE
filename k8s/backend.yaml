@@ -20,8 +20,28 @@ spec:
           ports:
             - containerPort: 8080
           env:
-            - name: SECRET_APPLICATION_PROPERTIES
+            - name: JWT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: application
-                  key: application
+                  key: jwtsecret
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: application
+                  key: database
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: application
+                  key: uri
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: application
+                  key: kakaoclientid
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: application
+                  key: kakaosecret
