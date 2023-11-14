@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_9b5b81b53155
+          image: krmp-d2hub-idock.9rum.cc/dev-test/repo_92f8bf1b1d74:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
