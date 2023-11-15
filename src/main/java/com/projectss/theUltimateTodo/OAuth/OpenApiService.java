@@ -32,7 +32,12 @@ public class OpenApiService {
     private String kakaoKey;
 
     public Cookie getToken(String code){
-        RestTemplate restTemplate = proxyConfig.restTemplate();
+        
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("krmp-proxy.9rum.cc", 3128));
+        factory.setProxy(proxy);
+        RestTemplate restTemplate = new RestTemplate(factory);
+        
         log.info("RestTemplate Proxy 설정: {}", restTemplate.getRequestFactory());
         log.info("kakaoKey : {}",kakaoKey);
         HttpHeaders headers = new HttpHeaders();
@@ -51,11 +56,10 @@ public class OpenApiService {
                 LoginResponseDto.class);
         log.info(loginResponseDto.toString());
 
-        Cookie cookie = getUserInfo(loginResponseDto.access_token());
+        Cookie cookie = getUserInfo(loginResponseDto.access_token(),restTemplate);
         return cookie;
     }
-    public Cookie getUserInfo(String token) {
-        RestTemplate restTemplate = proxyConfig.restTemplate();
+    public Cookie getUserInfo(String token,RestTemplate restTemplate) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.add("Authorization", "Bearer "+token);
