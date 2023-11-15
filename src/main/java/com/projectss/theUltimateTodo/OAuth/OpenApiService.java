@@ -14,8 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import com.projectss.theUltimateTodo.config.ProxyConfig;
 import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 
 @Service
@@ -23,8 +23,10 @@ import java.io.IOException;
 @Slf4j
 public class OpenApiService {
 
-    private final RestTemplate restTemplate;
+
     private final TokenService tokenService;
+    private final ProxyConfig proxyConfig;
+    private RestTemplate restTemplate = proxyConfig.restTemplate();
 
     @Value("${kakao.rest-key}")
     private String kakaoKey;
