@@ -23,7 +23,8 @@ public class ProxyConfig {
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
         Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
         factory.setProxy(proxy);
-        RestTemplate restTemplate = new RestTemplate(factory);
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setRequestFactory(factory);
         return restTemplate;
     }
 }
