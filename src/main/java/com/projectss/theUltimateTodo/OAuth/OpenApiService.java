@@ -11,15 +11,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import com.projectss.theUltimateTodo.config.ProxyConfig;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 @Service
 @RequiredArgsConstructor
@@ -35,12 +32,7 @@ public class OpenApiService {
     private String kakaoKey;
 
     public Cookie getToken(String code){
-        
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("krmp-proxy.9rum.cc", 3128));
-        factory.setProxy(proxy);
-        RestTemplate restTemplate = new RestTemplate(factory);
-        
+        RestTemplate restTemplate = proxyConfig.restTemplate();
         log.info("RestTemplate Proxy 설정: {}", restTemplate.getRequestFactory());
         log.info("kakaoKey : {}",kakaoKey);
         HttpHeaders headers = new HttpHeaders();
@@ -59,10 +51,11 @@ public class OpenApiService {
                 LoginResponseDto.class);
         log.info(loginResponseDto.toString());
 
-        Cookie cookie = getUserInfo(loginResponseDto.access_token(),restTemplate);
+        Cookie cookie = getUserInfo(loginResponseDto.access_token());
         return cookie;
     }
-    public Cookie getUserInfo(String token,RestTemplate restTemplate) {
+    public Cookie getUserInfo(String token) {
+        RestTemplate restTemplate = proxyConfig.restTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.add("Authorization", "Bearer "+token);
