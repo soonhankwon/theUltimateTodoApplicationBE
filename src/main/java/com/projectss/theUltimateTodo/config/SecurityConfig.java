@@ -52,8 +52,11 @@ public class SecurityConfig {
 //                )
                 .authorizeHttpRequests(authorize -> {
                         authorize.requestMatchers("/**").permitAll();}
-                )
-                .addFilterBefore(new JwtAuthFilter(tokenService, jpaUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+                );
+//                .addFilterBefore(new JwtAuthFilter(tokenService, jpaUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
 //                .userDetailsService(jpaUserDetailsService)
 //                .logout((logout) -> logout
 //                        .logoutSuccessUrl("/"))
@@ -63,9 +66,6 @@ public class SecurityConfig {
 //                            .userService(oAuth2UserService)) // OAuth2 Login 성공시 후 작업
 ////                            .defaultSuccessUrl("/", false));
 //                        .successHandler(successHandler())); // 진짜 성공 후 작업
-
-        return http.build();
-    }
 //
 //    @Bean
 //    public AuthenticationSuccessHandler successHandler() {

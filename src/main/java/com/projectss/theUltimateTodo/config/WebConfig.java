@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
 
         registry.addMapping("/**")
                 .allowCredentials(true)
-                .allowedOrigins("http://localhost:5173", "https://k28951c68ade3a.user-app.krampoline.com")
+                .allowedOrigins("**")
                 .allowedMethods("*")
                 .allowedHeaders("*")
                 .maxAge(3600);
