@@ -1,6 +1,7 @@
 
 package com.projectss.theUltimateTodo.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -10,6 +11,7 @@ import java.net.InetSocketAddress;
 import java.net.Proxy;
 
 @Configuration
+@Slf4j
 public class ProxyConfig {
     @Value("${proxy.host}") // 프록시 호스트를 프로퍼티로 설정하여 외부에서 설정할 수 있도록 합니다.
     private String proxyHost;
@@ -25,6 +27,18 @@ public class ProxyConfig {
         factory.setProxy(proxy);
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(factory);
+
+        InetSocketAddress proxyAddress = (InetSocketAddress) proxy.address();
+        if (proxyAddress != null) {
+            log.info("Proxy Host: {}", proxyAddress.getHostString());
+            log.info("Proxy Port: {}", proxyAddress.getPort());
+            log.info("factory Port: {}", factory.toString());
+
+
+        }
+
+
+
         return restTemplate;
     }
 }

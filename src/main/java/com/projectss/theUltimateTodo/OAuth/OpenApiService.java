@@ -11,12 +11,15 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import com.projectss.theUltimateTodo.config.ProxyConfig;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +44,10 @@ public class OpenApiService {
         body.add("client_id", kakaoKey);
         body.add("redirect_uri","https://k03f5e8ab5462a.user-app.krampoline.com/openApi/kakao");
         body.add("code",code);
+
+
+        SimpleClientHttpRequestFactory factory = (SimpleClientHttpRequestFactory) restTemplate.getRequestFactory();
+        log.warn("factory : {}",factory.toString());
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
                 "https://kauth.kakao.com/oauth/token",
