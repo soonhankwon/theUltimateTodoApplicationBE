@@ -11,15 +11,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import com.projectss.theUltimateTodo.config.ProxyConfig;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 @Service
 @RequiredArgsConstructor
@@ -34,10 +31,8 @@ public class OpenApiService {
     private String kakaoKey;
 
     public Cookie getToken(String code){
-
-
+        log.info("RestTemplate Proxy 설정: {}", restTemplate.getRequestFactory());
         log.info("kakaoKey : {}",kakaoKey);
-        log.info("proxy : {}",restTemplate.getRequestFactory());
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
@@ -45,7 +40,7 @@ public class OpenApiService {
 
         body.add("grant_type","authorization_code");
         body.add("client_id", kakaoKey);
-        body.add("redirect_uri","http://localhost:8080/openApi/kakao");
+        body.add("redirect_uri","https://k03f5e8ab5462a.user-app.krampoline.com/openApi/kakao");
         body.add("code",code);
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
@@ -54,12 +49,10 @@ public class OpenApiService {
                 LoginResponseDto.class);
         log.info(loginResponseDto.toString());
 
-        Cookie cookie = getUserInfo(loginResponseDto.access_token(),restTemplate);
+        Cookie cookie = getUserInfo(loginResponseDto.access_token());
         return cookie;
     }
-    public Cookie getUserInfo(String token,RestTemplate restTemplate) {
-        log.info("RestTemplate Proxy 설정: {}", restTemplate.getRequestFactory());
-
+    public Cookie getUserInfo(String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.add("Authorization", "Bearer "+token);
