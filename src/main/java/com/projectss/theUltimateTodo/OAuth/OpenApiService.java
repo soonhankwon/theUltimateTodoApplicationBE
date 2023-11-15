@@ -38,7 +38,7 @@ public class OpenApiService {
 
         body.add("grant_type","authorization_code");
         body.add("client_id", kakaoKey);
-        body.add("redirect_uri","http://localhost:8080/openApi/kakao");
+        body.add("redirect_uri","https://k03f5e8ab5462a.user-app.krampoline.com/openApi/kakao");
         body.add("code",code);
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
