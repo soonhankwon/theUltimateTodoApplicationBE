@@ -18,6 +18,7 @@ public class ProxyConfig {
         Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("krmp-proxy.9rum.cc", 3128));
         factory.setProxy(proxy);
         RestTemplate restTemplate = new RestTemplate(factory);
+//        RestTemplate restTemplate = new RestTemplate();
         return restTemplate;
     }
 
