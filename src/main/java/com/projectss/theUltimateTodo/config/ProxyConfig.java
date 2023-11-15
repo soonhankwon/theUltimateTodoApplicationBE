@@ -15,7 +15,7 @@ public class ProxyConfig {
     public RestTemplate restTemplate() {
         // 프록시 설정
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress("krmp-proxy.9rum.cc", 3128));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP,new InetSocketAddress(proxyHost, proxyPort));
         factory.setProxy(proxy);
         RestTemplate restTemplate = new RestTemplate(factory);
 //        RestTemplate restTemplate = new RestTemplate();
