@@ -33,6 +33,7 @@ public class OpenApiService {
 
     public Cookie getToken(String code){
         RestTemplate restTemplate = proxyConfig.restTemplate();
+        log.info("RestTemplate Proxy 설정: {}", restTemplate.getRequestFactory());
         log.info("kakaoKey : {}",kakaoKey);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
