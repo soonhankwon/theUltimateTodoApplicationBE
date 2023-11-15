@@ -26,12 +26,13 @@ public class OpenApiService {
 
     private final TokenService tokenService;
     private final ProxyConfig proxyConfig;
-    private RestTemplate restTemplate = proxyConfig.restTemplate();
+
 
     @Value("${kakao.rest-key}")
     private String kakaoKey;
 
     public Cookie getToken(String code){
+        RestTemplate restTemplate = proxyConfig.restTemplate();
         log.info("kakaoKey : {}",kakaoKey);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -53,6 +54,7 @@ public class OpenApiService {
         return cookie;
     }
     public Cookie getUserInfo(String token) {
+        RestTemplate restTemplate = proxyConfig.restTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.add("Authorization", "Bearer "+token);
