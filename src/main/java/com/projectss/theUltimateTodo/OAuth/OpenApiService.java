@@ -15,7 +15,6 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import com.projectss.theUltimateTodo.config.ProxyConfig;
 import org.springframework.web.client.RestTemplate;
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -39,7 +38,7 @@ public class OpenApiService {
     @Value("${proxy.port}") // 프록시 포트를 프로퍼티로 설정하여 외부에서 설정할 수 있도록 합니다.
     private int proxyPort;
 
-    public Cookie getToken(String code){
+    public String getToken(String code){
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -48,7 +47,7 @@ public class OpenApiService {
 
         body.add("grant_type","authorization_code");
         body.add("client_id", kakaoKey);
-        body.add("redirect_uri","https://k03f5e8ab5462a.user-app.krampoline.com/openApi/kakao");
+        body.add("redirect_uri","http://localhost:5173/openApi/kakao");
         body.add("code",code);
 
 
@@ -61,16 +60,18 @@ public class OpenApiService {
         // RestTemplate에 팩토리 설정
         RestTemplate restTemplate = new RestTemplate(factory);
 
+//        RestTemplate restTemplate = new RestTemplate();
+
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
                 "https://kauth.kakao.com/oauth/token",
                 new HttpEntity<>(body,headers),
                 LoginResponseDto.class);
         log.info(loginResponseDto.toString());
 
-        Cookie cookie = getUserInfo(loginResponseDto.access_token(),restTemplate);
-        return cookie;
+        String token = getUserInfo(loginResponseDto.access_token(),restTemplate);
+        return token;
     }
-    public Cookie getUserInfo(String token,RestTemplate restTemplate) {
+    public String getUserInfo(String token,RestTemplate restTemplate) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
         headers.add("Authorization", "Bearer "+token);
@@ -98,11 +99,11 @@ public class OpenApiService {
         }
 
         // 쿠키 생성 및 설정
-        Cookie cookie = new Cookie("token", myToken);
-        cookie.setMaxAge(30 * 60); // 쿠키 만료 시간 (초 단위, 여기서는 30분)
-        cookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
+//        Cookie cookie = new Cookie("token", myToken);
+//        cookie.setMaxAge(30 * 60); // 쿠키 만료 시간 (초 단위, 여기서는 30분)
+//        cookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
 
-        return cookie;
+        return myToken;
 
     }
 //

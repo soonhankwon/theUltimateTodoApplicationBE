@@ -20,12 +20,11 @@ public class OpenApiController {
     private final OpenApiService openApiService;
 
     @GetMapping("/kakao")
-    public void kakao(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
-        Cookie cookie  = openApiService.getToken(code);
-        log.info("cookie : {} ",cookie.toString() );
-        response.addCookie(cookie);
+    public String kakao(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
+        String token  = openApiService.getToken(code);
+        log.info("token : {} ",token );
         // 리디렉트 수행
-        response.sendRedirect("https://k28951c68ade3a.user-app.krampoline.com"); // 원하는 리디렉션 경로로 변경 가능
+        return token;
 //
     }
 
