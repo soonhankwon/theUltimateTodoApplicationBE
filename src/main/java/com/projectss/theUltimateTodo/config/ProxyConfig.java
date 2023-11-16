@@ -22,21 +22,21 @@ public class ProxyConfig {
     @Bean
     public RestTemplate restTemplate() {
         // 프록시 설정
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
-        factory.setProxy(proxy);
+//        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+//        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
+//        factory.setProxy(proxy);
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        restTemplate.setRequestFactory(factory);
+//
+//        InetSocketAddress proxyAddress = (InetSocketAddress) proxy.address();
+//        if (proxyAddress != null) {
+//            log.info("Proxy Host: {}", proxyAddress.getHostString());
+//            log.info("Proxy Port: {}", proxyAddress.getPort());
+//            log.info("factory Port: {}", factory.toString());
+//
+//        }
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.setRequestFactory(factory);
-
-        InetSocketAddress proxyAddress = (InetSocketAddress) proxy.address();
-        if (proxyAddress != null) {
-            log.info("Proxy Host: {}", proxyAddress.getHostString());
-            log.info("Proxy Port: {}", proxyAddress.getPort());
-            log.info("factory Port: {}", factory.toString());
-
-
-        }
-
 
 
         return restTemplate;
