@@ -27,7 +27,7 @@ public class OpenApiService {
 
 
     private final TokenService tokenService;
-//    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     @Value("${kakao.rest-key}")
     private String kakaoKey;
 
@@ -48,7 +48,7 @@ public class OpenApiService {
 
 
 
-        RestTemplate restTemplate = new RestTemplate();
+        // RestTemplate restTemplate = new RestTemplate();
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
                 "https://kauth.kakao.com/oauth/token",
