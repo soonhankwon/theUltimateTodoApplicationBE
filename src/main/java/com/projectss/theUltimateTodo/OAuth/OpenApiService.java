@@ -27,16 +27,11 @@ public class OpenApiService {
 
 
     private final TokenService tokenService;
-
+//    private final RestTemplate restTemplate;
     @Value("${kakao.rest-key}")
     private String kakaoKey;
 
 
-    @Value("${proxy.host}") // 프록시 호스트를 프로퍼티로 설정하여 외부에서 설정할 수 있도록 합니다.
-    private String proxyHost;
-
-    @Value("${proxy.port}") // 프록시 포트를 프로퍼티로 설정하여 외부에서 설정할 수 있도록 합니다.
-    private int proxyPort;
 
     public String getToken(String code){
 
@@ -52,15 +47,8 @@ public class OpenApiService {
 
 
 
-        // SimpleClientHttpRequestFactory 생성 및 프록시 설정
-        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyHost, proxyPort));
-        factory.setProxy(proxy);
 
-        // RestTemplate에 팩토리 설정
-        RestTemplate restTemplate = new RestTemplate(factory);
-
-//        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
                 "https://kauth.kakao.com/oauth/token",
