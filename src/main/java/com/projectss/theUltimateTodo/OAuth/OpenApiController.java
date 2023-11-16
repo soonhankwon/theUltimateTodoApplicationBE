@@ -27,5 +27,14 @@ public class OpenApiController {
         return token;
 //
     }
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/getGithubUsers")
+    public ResponseEntity<String> getGithubUsers() {
+        // GitHub API에 프록시를 통해 GET 요청을 보냅니다.
+        ResponseEntity<String> responseEntity = restTemplate.getForEntity("https://api.github.com/users", String.class);
+        return responseEntity;
+    }
 
 }
