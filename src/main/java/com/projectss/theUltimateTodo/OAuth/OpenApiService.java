@@ -27,13 +27,14 @@ public class OpenApiService {
 
 
     private final TokenService tokenService;
-    private final RestTemplate restTemplate;
     @Value("${kakao.rest-key}")
     private String kakaoKey;
 
 
 
     public String getToken(String code){
+
+        RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
