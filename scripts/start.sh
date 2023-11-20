@@ -20,6 +20,7 @@ pwd >> $DEPLOY_LOG
 # jar 파일 실행
 echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
 ls >> $DEPLOY_LOG
+chmod +x $JAR_FILE
 nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
 
 CURRENT_PID=$(pgrep -f $JAR_FILE)
