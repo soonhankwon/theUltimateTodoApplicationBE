@@ -11,14 +11,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +23,7 @@ public class OpenApiService {
 
 
     private final TokenService tokenService;
+    private final UserRepository userRepository;
     @Value("${kakao.rest-key}")
     private String kakaoKey;
 
@@ -82,17 +79,29 @@ public class OpenApiService {
             String nickname = jsonNode.get("properties").get("nickname").asText();
             String profileImage = jsonNode.get("properties").get("profile_image").asText();
             String thumbnailImage = jsonNode.get("properties").get("thumbnail_image").asText();
+
+
+            saveUser(id,nickname,profileImage,thumbnailImage);
             myToken = tokenService.generateToken(id,nickname,profileImage,thumbnailImage);
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        // 쿠키 생성 및 설정
-//        Cookie cookie = new Cookie("token", myToken);
-//        cookie.setMaxAge(30 * 60); // 쿠키 만료 시간 (초 단위, 여기서는 30분)
-//        cookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
 
         return myToken;
+
+    }
+    public void saveUser(String id, String nickname, String profileImage, String thumbnailImage){
+        User newUser = User.builder()
+                .id(id)
+                .nickname(nickname)
+                .profile_image(profileImage)
+                .thumbnail_image(thumbnailImage)
+                .snsId(id)
+                .snsType("kakao")
+                .role("ROLE_USER")
+                .build();
+        userRepository.save(newUser);
 
     }
 //

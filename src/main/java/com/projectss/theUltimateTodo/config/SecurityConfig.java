@@ -46,14 +46,11 @@ public class SecurityConfig {
                 .csrf(csrf->csrf.disable())
 //                .cors()
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authorizeHttpRequests(authorize -> {
-//                        authorize.requestMatchers("/login/**").permitAll();
-//                        authorize.anyRequest().authenticated();}
-//                )
                 .authorizeHttpRequests(authorize -> {
-                        authorize.requestMatchers("/**").permitAll();}
-                );
-//                .addFilterBefore(new JwtAuthFilter(tokenService, jpaUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+                        authorize.requestMatchers("/openApi/**").permitAll();
+                        authorize.anyRequest().authenticated();}
+                )
+                .addFilterBefore(new JwtAuthFilter(tokenService, jpaUserDetailsService), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
