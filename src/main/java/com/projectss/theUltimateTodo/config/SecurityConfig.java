@@ -54,43 +54,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-//                .userDetailsService(jpaUserDetailsService)
-//                .logout((logout) -> logout
-//                        .logoutSuccessUrl("/"))
-//                .oauth2Login((oauth2) -> oauth2 //로그인 config 시작
-//                        .loginPage("/login") //
-//                        .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
-//                            .userService(oAuth2UserService)) // OAuth2 Login 성공시 후 작업
-////                            .defaultSuccessUrl("/", false));
-//                        .successHandler(successHandler())); // 진짜 성공 후 작업
-//
-//    @Bean
-//    public AuthenticationSuccessHandler successHandler() {
-//        return ((request, response, authentication) -> {
-//            DefaultOAuth2User defaultOAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
-//
-//            log.info("req : {}",request.toString());
-//            log.info("res : {}",response.toString());
-//            log.info("aut : {}",authentication.toString());
-//            log.info("def : {}", defaultOAuth2User.toString());
-//
-////            jwt 발급
-//
-//
-//            String id = defaultOAuth2User.getAttributes().get("id").toString();
-//            Map<String, Object> properties = (Map<String, Object>) defaultOAuth2User.getAttributes().get("properties");
-//            String nickname = properties.get("nickname").toString();
-//            String token = tokenService.generateToken(id,nickname);
-//            // 쿠키 생성 및 설정
-//            Cookie cookie = new Cookie("token", token);
-//            cookie.setMaxAge(30 * 60); // 쿠키 만료 시간 (초 단위, 여기서는 30분)
-//            cookie.setPath("/"); // 모든 경로에서 접근 가능하도록 설정
-//            response.addCookie(cookie);
-//
-//            // 리디렉트 수행
-//            response.sendRedirect("https://k28951c68ade3a.user-app.krampoline.com"); // 원하는 리디렉션 경로로 변경 가능
-//
-//            log.info("id : {}", id);
-//        });
-//    }
 }
