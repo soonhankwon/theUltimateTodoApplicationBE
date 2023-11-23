@@ -18,4 +18,9 @@ public class TestController {
         log.info("TestController.test2() called");
         return "bye World!";
     }
+    @GetMapping("/.well-known/acme-challenge/IR9LWWjenpX23LyKi8XZ6-JaVKsV_quOMdHoWBsGV3w")
+    public String cert(){
+        return "IR9LWWjenpX23LyKi8XZ6-JaVKsV_quOMdHoWBsGV3w.X3xz659Vj8PmfKVSv2XnKSc9hvA9Nu2gmOoZdeKDGUc";
+    }
+
 }
