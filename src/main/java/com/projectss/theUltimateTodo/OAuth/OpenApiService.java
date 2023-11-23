@@ -26,6 +26,8 @@ public class OpenApiService {
     private final UserRepository userRepository;
     @Value("${kakao.rest-key}")
     private String kakaoKey;
+    @Value("${kakao.client-secret}")
+    private String clientSecret;
 
 
 
@@ -42,11 +44,8 @@ public class OpenApiService {
         body.add("client_id", kakaoKey);
         body.add("redirect_uri","http://localhost:5173/openApi/kakao");
         body.add("code",code);
+        body.add("client_secret",clientSecret);
 
-
-
-
-        // RestTemplate restTemplate = new RestTemplate();
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
                 "https://kauth.kakao.com/oauth/token",
@@ -79,10 +78,10 @@ public class OpenApiService {
             String nickname = jsonNode.get("properties").get("nickname").asText();
             String profileImage = jsonNode.get("properties").get("profile_image").asText();
             String thumbnailImage = jsonNode.get("properties").get("thumbnail_image").asText();
+            String email = jsonNode.get("kakao_account").get("email").asText();
 
-
-            saveUser(id,nickname,profileImage,thumbnailImage);
-            myToken = tokenService.generateToken(id,nickname,profileImage,thumbnailImage);
+            saveUser(id,nickname,profileImage,thumbnailImage,email);
+            myToken = tokenService.generateToken(id,nickname,profileImage,thumbnailImage,email);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -91,7 +90,7 @@ public class OpenApiService {
         return myToken;
 
     }
-    public void saveUser(String id, String nickname, String profileImage, String thumbnailImage){
+    public void saveUser(String id, String nickname, String profileImage, String thumbnailImage,String email){
         User newUser = User.builder()
                 .id(id)
                 .nickname(nickname)
@@ -100,6 +99,7 @@ public class OpenApiService {
                 .snsId(id)
                 .snsType("kakao")
                 .role("ROLE_USER")
+                .userEmail(email)
                 .build();
         userRepository.save(newUser);
 

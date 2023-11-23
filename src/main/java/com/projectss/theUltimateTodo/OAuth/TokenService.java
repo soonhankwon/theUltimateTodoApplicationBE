@@ -28,7 +28,7 @@ public class TokenService {
     private static final Long ACCESS_TOKEN_EXPIRED_TIME_MS = 1000 * 60 * 60L;
 
 
-    public String generateToken(String userId,String nickname,String profileImage, String thumbnailImage) {
+    public String generateToken(String userId,String nickname,String profileImage, String thumbnailImage,String email) {
         log.info("secret key : {}",secretKey);
 
         Claims claims = Jwts.claims(); //일종의 map
@@ -37,6 +37,8 @@ public class TokenService {
         claims.put("nickname", nickname);
         claims.put("profileImage", profileImage);
         claims.put("thumbnailImage", thumbnailImage);
+        claims.put("email", email);
+        log.info("claims : {}",claims);
 
 
         return Jwts.builder()
