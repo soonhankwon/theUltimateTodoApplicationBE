@@ -28,7 +28,7 @@ public class User {
     private String snsType;
 
     private String snsId;
-
+    private String openId;
     private String profile_image;
     private String thumbnail_image;
 

@@ -1,36 +1,32 @@
 package com.projectss.theUltimateTodo.chatbot;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequiredArgsConstructor
 @Slf4j
 public class ChatBotController {
-    @GetMapping("/chatbot/test")
-    public String chatbot(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
-      log.info(body);
+    private final ChatBotService chatBotService;
 
-        return "{\n" +
-                "    \"version\": \"2.0\",\n" +
-                "    \"template\": {\n" +
-                "        \"outputs\": [\n" +
-                "            {\n" +
-                "                \"simpleText\": {\n" +
-                "                    \"text\": \"메모에 저장되었습니다. GET\"\n" +
-                "                }\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "}";
+    @PostMapping("/chatbot/register")
+    public String chatbot(@RequestBody String body) {
+
+        log.info(body);
+        return chatBotService.register(body);
     }
-    @PostMapping("/chatbot/test")
+    @PostMapping("/chatbot/fallback")
     public String chatbotPost(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
         log.info("post chatbot body: {} ",body);
 
