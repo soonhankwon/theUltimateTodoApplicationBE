@@ -26,6 +26,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("request URL = {}", request.getRequestURI());
         log.info("Access Token Value = {}", request.getHeader("Authorization"));
+        String referer = request.getHeader("Referer");
+        log.info("Referer = {}", referer);
 
         String jwt = tokenService.resolveToken(request);
 
