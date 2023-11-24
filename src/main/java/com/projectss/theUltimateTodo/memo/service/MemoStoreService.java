@@ -23,4 +23,10 @@ public class MemoStoreService {
                 .orElseThrow(() -> new IllegalStateException("no memo store by user id"));
 
     }
+    public String deleteAllMemoStore(String email) {
+        Integer numberDeleted = memoStoreRepository.deleteAllByEmail(email);
+        return numberDeleted.toString();
+    }
+
+
 }

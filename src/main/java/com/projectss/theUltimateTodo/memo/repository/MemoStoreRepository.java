@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface MemoStoreRepository extends MongoRepository<MemoStore, String> {
     Optional<MemoStore> findMemoStoreByEmail(String email);
     boolean existsByEmail(String email);
+    Integer deleteAllByEmail(String email);
 }
