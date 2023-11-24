@@ -23,6 +23,10 @@ public class MemoStoreController {
     @GetMapping
     public ResponseEntity<MemoStore> getRootByUser(@AuthenticationPrincipal SecurityUser securityUser) {
         String email = securityUser.getUsername();
+        //
+        memoStoreService.deleteAllMemoStore(email);
+        memoStoreService.createMemoStoreByUser(email);
+        ///
         MemoStore memoStoreByUser = memoStoreService.getMemoStoreByUser(email);
         return ResponseEntity.ok().body(memoStoreByUser);
     }
