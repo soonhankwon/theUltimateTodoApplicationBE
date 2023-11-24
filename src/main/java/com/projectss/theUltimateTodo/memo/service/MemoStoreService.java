@@ -14,8 +14,10 @@ public class MemoStoreService {
     private final MemoStoreRepository memoStoreRepository;
 
     public void createMemoStoreByUser(String email) {
-        MemoStore memoStore = new MemoStore(email);
-        memoStoreRepository.save(memoStore);
+        if(!memoStoreRepository.existsByEmail(email)){
+            MemoStore memoStore = new MemoStore(email);
+            memoStoreRepository.save(memoStore);
+        }
     }
 
     public MemoStore getMemoStoreByUser(String email) {
