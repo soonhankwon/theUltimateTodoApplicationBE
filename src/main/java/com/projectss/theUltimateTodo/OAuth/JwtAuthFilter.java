@@ -28,7 +28,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         log.info("Access Token Value = {}", request.getHeader("Authorization"));
         String referer = request.getHeader("Referer");
         log.info("Referer = {}", referer);
-
+        log.info("request = {}" , request);
         String jwt = tokenService.resolveToken(request);
 
         if(StringUtils.hasText(jwt) && tokenService.isTokenValid(jwt)) {
