@@ -13,13 +13,13 @@ import java.util.Map;
 @RestController
 @Slf4j
 public class ChatBotController {
-    @GetMapping("/ChatBot/test")
+    @GetMapping("/chatBot/test")
     public void chatbot(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
       log.info(body);
       log.info(request.toString());
 
     }
-    @PostMapping("/ChatBot/test")
+    @PostMapping("/chatBot/test")
     public void chatbotPost(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
         log.info(body);
         log.info(request.toString());
