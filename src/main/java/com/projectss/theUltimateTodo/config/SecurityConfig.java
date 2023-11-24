@@ -47,7 +47,7 @@ public class SecurityConfig {
 //                .cors()
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
-                        authorize.requestMatchers("/openApi/**","/","/swagger-ui/index.html#").permitAll();
+                        authorize.requestMatchers("/openApi/**","/","/swagger-ui/**").permitAll();
                         authorize.anyRequest().authenticated();}
                 )
                 .addFilterBefore(new JwtAuthFilter(tokenService, jpaUserDetailsService), UsernamePasswordAuthenticationFilter.class);
