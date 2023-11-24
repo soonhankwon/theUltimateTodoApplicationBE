@@ -1,12 +1,15 @@
 package com.projectss.theUltimateTodo.memo.controller;
 
+import com.projectss.theUltimateTodo.OAuth.SecurityUser;
 import com.projectss.theUltimateTodo.memo.dto.DirectoryRequest;
 import com.projectss.theUltimateTodo.memo.service.DirectoryService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,65 +20,72 @@ public class DirectoryController {
 
     private final DirectoryService directoryService;
 
-    @Operation(summary = "최상위 디렉토리 저장", description = "최상위 디렉토리 저장")
+    @Operation(summary = "최상위 디렉토리 저장", description = "최상위 디렉토리 저장", responses = @ApiResponse(responseCode = "201"))
     @PostMapping
-    public ResponseEntity<?> createRootDirectory(@RequestBody DirectoryRequest dto) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.saveRootDirectory(loginUserEmail, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("ok");
+    public ResponseEntity<String> createRootDirectory(@AuthenticationPrincipal SecurityUser securityUser,
+                                                      @RequestBody DirectoryRequest dto) {
+        String email = securityUser.getUsername();
+        directoryService.saveRootDirectory(email, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }
 
-    @Operation(summary = "디렉토리 안에 디렉토리 저장 API", description = "디렉토리 저장")
+    @Operation(summary = "디렉토리 안에 디렉토리 저장 API", description = "디렉토리 저장", responses = @ApiResponse(responseCode = "201"))
     @PostMapping("/{directoryId}")
-    public ResponseEntity<?> createDirectory(@PathVariable String directoryId,
-                                             @RequestBody DirectoryRequest dto) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.saveDirectoryInDirectory(loginUserEmail, directoryId, dto);
-        return ResponseEntity.status(HttpStatus.CREATED).body("ok");
+    public ResponseEntity<String> createDirectory(@AuthenticationPrincipal SecurityUser securityUser,
+                                                  @PathVariable String directoryId,
+                                                  @RequestBody DirectoryRequest dto) {
+        String email = securityUser.getUsername();
+        directoryService.saveDirectoryInDirectory(email, directoryId, dto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }
 
     @Operation(summary = "디렉토리 수정 API", description = "디렉토리 수정")
     @PatchMapping("/{directoryId}")
-    public ResponseEntity<?> updateDirectory(@PathVariable String directoryId,
-                                             @RequestBody DirectoryRequest dto) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.updateDirectory(loginUserEmail, directoryId, dto);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<String> updateDirectory(@AuthenticationPrincipal SecurityUser securityUser,
+                                                  @PathVariable String directoryId,
+                                                  @RequestBody DirectoryRequest dto) {
+        String email = securityUser.getUsername();
+        directoryService.updateDirectory(email, directoryId, dto);
+        return ResponseEntity.ok().body("updated");
     }
 
     @Operation(summary = "최상단 디렉토리 위치 수정 API", description = "최상단 디렉토리 드래그 앤 드랍")
     @PutMapping("/{directoryId}/{targetDirectoryId}")
-    public ResponseEntity<?> updateRootDirectoryLocation(@PathVariable String directoryId,
-                                                         @PathVariable String targetDirectoryId) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.moveRootDirectoryLocation(loginUserEmail, directoryId, targetDirectoryId);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<String> updateRootDirectoryLocation(@AuthenticationPrincipal SecurityUser securityUser,
+                                                              @PathVariable String directoryId,
+                                                              @PathVariable String targetDirectoryId) {
+        String email = securityUser.getUsername();
+        directoryService.moveRootDirectoryLocation(email, directoryId, targetDirectoryId);
+        return ResponseEntity.ok().body("updated");
     }
 
     @Operation(summary = "디렉토리 to 디렉토리 API", description = "디렉토리 to 디렉토리 드래그 앤 드랍")
     @PutMapping("/{parentDirectoryId}/{directoryId}/{targetDirectoryId}")
-    public ResponseEntity<?> updateDirectoryLocation(@PathVariable String parentDirectoryId,
-                                                     @PathVariable String directoryId,
-                                                     @PathVariable String targetDirectoryId) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.moveDirectoryLocation(loginUserEmail, parentDirectoryId, directoryId, targetDirectoryId);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<String> updateDirectoryLocation(@AuthenticationPrincipal SecurityUser securityUser,
+                                                          @PathVariable String parentDirectoryId,
+                                                          @PathVariable String directoryId,
+                                                          @PathVariable String targetDirectoryId) {
+        String email = securityUser.getUsername();
+        directoryService.moveDirectoryLocation(email, parentDirectoryId, directoryId, targetDirectoryId);
+        return ResponseEntity.ok().body("updated");
     }
 
     @Operation(summary = "디렉토리 to 최상단 API", description = "디렉토리 to 최상단 드래그 앤 드랍")
     @PutMapping("/{parentDirectoryId}/{directoryId}/move-root")
-    public ResponseEntity<?> updateDirectoryLocationToRoot(@PathVariable String parentDirectoryId,
-                                                           @PathVariable String directoryId) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.moveDirectoryLocationToRoot(loginUserEmail, parentDirectoryId, directoryId);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<String> updateDirectoryLocationToRoot(@AuthenticationPrincipal SecurityUser securityUser,
+                                                                @PathVariable String parentDirectoryId,
+                                                                @PathVariable String directoryId) {
+        String email = securityUser.getUsername();
+        directoryService.moveDirectoryLocationToRoot(email, parentDirectoryId, directoryId);
+        return ResponseEntity.ok().body("updated");
     }
 
     @Operation(summary = "디렉토리 삭제 API", description = "디렉토리 삭제")
     @DeleteMapping("/{directoryId}")
-    public ResponseEntity<?> deleteDirectory(@PathVariable String directoryId) {
-        String loginUserEmail = "test@naver.com";
-        directoryService.deleteDirectory(loginUserEmail, directoryId);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<String> deleteDirectory(@AuthenticationPrincipal SecurityUser securityUser,
+                                                  @PathVariable String directoryId) {
+        String email = securityUser.getUsername();
+        directoryService.deleteDirectory(email, directoryId);
+        return ResponseEntity.ok().body("deleted");
     }
 }

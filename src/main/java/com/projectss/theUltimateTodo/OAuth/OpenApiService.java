@@ -2,6 +2,7 @@ package com.projectss.theUltimateTodo.OAuth;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.projectss.theUltimateTodo.memo.service.MemoStoreService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,8 @@ public class OpenApiService {
 
     private final TokenService tokenService;
     private final UserRepository userRepository;
+    private final MemoStoreService memoStoreService;
+
     @Value("${kakao.rest-key}")
     private String kakaoKey;
     @Value("${kakao.client-secret}")
@@ -90,6 +93,7 @@ public class OpenApiService {
         return myToken;
 
     }
+
     public void saveUser(String id, String nickname, String profileImage, String thumbnailImage,String email){
         User newUser = User.builder()
                 .id(id)
@@ -101,8 +105,10 @@ public class OpenApiService {
                 .role("ROLE_USER")
                 .userEmail(email)
                 .build();
-        userRepository.save(newUser);
 
+        userRepository.save(newUser);
+        //유저 DB 저장시 유저의 메모스토어 생성
+        memoStoreService.createMemoStoreByUser(email);
     }
 //
 //
