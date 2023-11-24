@@ -25,9 +25,9 @@ public class ChatBotService {
             // intent의 name 값 가져오기
             String intentName = jsonNode.path("intent").path("name").asText();
             // app_user_id 값 가져오기
-            String appUserId = jsonNode.path("action").path("params").path("profile").path("app_user_id").asText();
-
-
+            String profile = jsonNode.path("action").path("params").path("profile").asText();
+            String appUserId = extractAppUserId(profile);
+            if (appUserId.equals("")) throw new RuntimeException("잘못된 user입니다.");
             // openId 값 가져오기
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
             log.info("intentName : {}, appUserId : {}, openId {}",intentName,appUserId,openId);
@@ -73,7 +73,29 @@ public class ChatBotService {
             throw new RuntimeException("처리 중 오류가 발생하였습니다.", e);
         }
 
+    }
 
+    public String fallback(String body){
+        return "{\n" +
+                "    \"version\": \"2.0\",\n" +
+                "    \"template\": {\n" +
+                "        \"outputs\": [\n" +
+                "            {\n" +
+                "                \"simpleText\": {\n" +
+                "                    \"text\": \"메모에 저장되었습니다. POST.\"\n" +
+                "                }\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "}";
 
+    }
+    private String extractAppUserId(String text) {
+        int colonIndex = text.indexOf("app_user_id\\\":");
+        int braceIndex = text.indexOf("}");
+        if (colonIndex != -1 && braceIndex != -1) {
+            return text.substring(colonIndex + 1, braceIndex).trim();
+        }
+        return ""; // 추출 실패 시 null 반환 또는 예외 처리
     }
 }

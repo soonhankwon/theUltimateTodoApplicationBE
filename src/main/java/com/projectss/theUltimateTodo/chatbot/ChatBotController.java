@@ -30,21 +30,9 @@ public class ChatBotController {
     public String chatbotPost(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
 
         log.info("chatbot fallback body: {} ",body);
+        return chatBotService.fallback(body);
 
 
-
-        return "{\n" +
-                "    \"version\": \"2.0\",\n" +
-                "    \"template\": {\n" +
-                "        \"outputs\": [\n" +
-                "            {\n" +
-                "                \"simpleText\": {\n" +
-                "                    \"text\": \"메모에 저장되었습니다. POST.\"\n" +
-                "                }\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "}";
 
 
     }
