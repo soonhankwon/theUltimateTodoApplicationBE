@@ -14,15 +14,39 @@ import java.util.Map;
 @Slf4j
 public class ChatBotController {
     @GetMapping("/chatbot/test")
-    public void chatbot(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+    public String chatbot(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
       log.info(body);
-      log.info(request.toString());
 
+        return "{\n" +
+                "    \"version\": \"2.0\",\n" +
+                "    \"template\": {\n" +
+                "        \"outputs\": [\n" +
+                "            {\n" +
+                "                \"simpleText\": {\n" +
+                "                    \"text\": \"메모에 저장되었습니다. GET\"\n" +
+                "                }\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "}";
     }
     @PostMapping("/chatbot/test")
-    public void chatbotPost(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
-        log.info(body);
-        log.info(request.toString());
+    public String chatbotPost(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
+        log.info("post chatbot body: {} ",body);
+
+        return "{\n" +
+                "    \"version\": \"2.0\",\n" +
+                "    \"template\": {\n" +
+                "        \"outputs\": [\n" +
+                "            {\n" +
+                "                \"simpleText\": {\n" +
+                "                    \"text\": \"메모에 저장되었습니다. POST.\"\n" +
+                "                }\n" +
+                "            }\n" +
+                "        ]\n" +
+                "    }\n" +
+                "}";
+
 
     }
 }
