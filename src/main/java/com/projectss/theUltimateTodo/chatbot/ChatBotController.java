@@ -23,12 +23,15 @@ public class ChatBotController {
     @PostMapping("/chatbot/register")
     public String chatbot(@RequestBody String body) {
 
-        log.info(body);
+        log.info("chatbot register body",body);
         return chatBotService.register(body);
     }
     @PostMapping("/chatbot/fallback")
     public String chatbotPost(@RequestBody String body, HttpServletRequest request, HttpServletResponse response) {
-        log.info("post chatbot body: {} ",body);
+
+        log.info("chatbot fallback body: {} ",body);
+
+
 
         return "{\n" +
                 "    \"version\": \"2.0\",\n" +
