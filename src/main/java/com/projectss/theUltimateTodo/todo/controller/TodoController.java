@@ -1,55 +1,80 @@
 package com.projectss.theUltimateTodo.todo.controller;
 
+import com.projectss.theUltimateTodo.OAuth.SecurityUser;
 import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.dto.TodoDTO;
 import com.projectss.theUltimateTodo.todo.service.TodoService;
+import com.projectss.theUltimateTodo.todo.service.TodoStoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/todo")
+@RequestMapping("/api/todos")
 public class TodoController {
     private final TodoService todoService;
+    private final TodoStoreService todoStoreService;
 
-    @PostMapping("/create")
-    public Todo create(@RequestBody TodoDTO todoDTO) {
+    @PostMapping
+    public ResponseEntity<String> create(@AuthenticationPrincipal SecurityUser securityUser,
+                                         @RequestBody TodoDTO todoDTO) {
+        String email = securityUser.getUsername();
 
-        return todoService.add(todoDTO);
+        todoService.add(email, todoDTO);
+
+        return ResponseEntity.ok().body("created");
     }
 
-    @GetMapping("/{read}")
-    public Todo readById(@PathVariable("read") Long id) {
+    @GetMapping("/{todoId}")
+    public ResponseEntity<Todo> getTodoById(@AuthenticationPrincipal SecurityUser securityUser,
+                                            @PathVariable String todoId) {
+        String email = securityUser.getUsername();
 
-        return todoService.searchById(id);
+        Todo todoById = todoService.getTodoById(email, todoId);
+
+        return ResponseEntity.ok().body(todoById);
     }
 
-    @GetMapping("/readAll")
-    public List<Todo> readAll() {
+    @GetMapping
+    public ResponseEntity<List<Todo>> getTodosById(@AuthenticationPrincipal SecurityUser securityUser) {
+        String email = securityUser.getUsername();
 
-        return todoService.searchAll();
+        List<Todo> todosById = todoService.getTodosById(email);
+
+        return ResponseEntity.ok().body(todosById);
     }
 
-    @GetMapping("/readInProgress")
-    public List<Todo> readInProgress() {
+    @GetMapping("/in-progress")
+    public ResponseEntity<List<Todo>> getTodoInProgress(@AuthenticationPrincipal SecurityUser securityUser) {
+        String email = securityUser.getUsername();
 
-        return todoService.searchInProgress();
+        List<Todo> todoInProgress = todoStoreService.getTodoInProgress(email);
+
+        return ResponseEntity.ok().body(todoInProgress);
     }
 
-    @PatchMapping("/update")
-    public Todo update(@RequestBody TodoDTO todoDTO) {
+    @PatchMapping("/{todoId}")
+    public ResponseEntity<String> updateTodo(@AuthenticationPrincipal SecurityUser securityUser,
+                                             @PathVariable String todoId,
+                                             @RequestBody TodoDTO todoDTO) {
+        String email = securityUser.getUsername();
 
-        return todoService.update(todoService, todoDTO);
+        todoService.updateTodo(email, todoId, todoDTO);
+
+        return ResponseEntity.ok().body("updated");
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Todo> delete(@PathVariable Long id) {
+    @DeleteMapping("/{todoId}")
+    public ResponseEntity<String> deleteTodo(@AuthenticationPrincipal SecurityUser securityUser,
+                                             @PathVariable String todoId) {
+        String email = securityUser.getUsername();
 
-        this.todoService.delete(id);
+        todoService.delete(email, todoId);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body("deleted");
     }
 }

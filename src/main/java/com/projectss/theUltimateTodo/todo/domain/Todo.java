@@ -1,7 +1,7 @@
 package com.projectss.theUltimateTodo.todo.domain;
 
 import com.projectss.theUltimateTodo.todo.dto.TodoDTO;
-import com.projectss.theUltimateTodo.todo.service.TodoService;
+import com.projectss.theUltimateTodo.todo.quickInput.dto.ApiResponse;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,8 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.ObjectUtils;
@@ -19,15 +17,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@Builder
 @Getter
 @Entity
-@AllArgsConstructor
 @NoArgsConstructor
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     @NotBlank
     private String content;
     private TodoStatus status;
@@ -41,7 +37,6 @@ public class Todo {
     private LocalDateTime updatedAt;
 
     public void add(TodoDTO todoDTO) {
-
         if (ObjectUtils.isEmpty(todoDTO.startDate())) {
             this.defaultStartDateTime();
         }
@@ -58,8 +53,23 @@ public class Todo {
             this.endTime = todoDTO.endTime();
         }
 
-        this.id = todoDTO.id();
         this.content = todoDTO.content();
+        this.status = TodoStatus.NOT_DONE;
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public void quickAdd(ApiResponse response) {
+        if (ObjectUtils.isEmpty(response.date())) {
+            this.defaultStartDateTime();
+        }
+        else {
+            this.startDate = response.date();
+            this.startTime = LocalTime.of(0, 0);
+            this.endDate = response.date();
+            this.endTime = LocalTime.of(23, 59);
+        }
+
+        this.content = response.content();
         this.status = TodoStatus.NOT_DONE;
         this.createdAt = LocalDateTime.now();
     }
@@ -75,9 +85,8 @@ public class Todo {
 
     }
 
-    public void update(TodoService service, TodoDTO todoDTO) {
-        Todo todo = service.searchById(todoDTO.id());
-        todo.updateTodo(todoDTO.content(), todoDTO.status(), todoDTO.startDate(), todoDTO.endDate(), todoDTO.startTime(), todoDTO.endTime());
+    public void update(TodoDTO todoDTO) {
+        updateTodo(todoDTO.content(), todoDTO.status(), todoDTO.startDate(), todoDTO.endDate(), todoDTO.startTime(), todoDTO.endTime());
     }
 
     public void updateTodo(String content, TodoStatus status, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
