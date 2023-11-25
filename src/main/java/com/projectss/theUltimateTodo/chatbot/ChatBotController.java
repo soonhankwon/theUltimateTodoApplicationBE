@@ -31,20 +31,20 @@ public class ChatBotController {
     @PostMapping("/chatbot/test")
     public String chatbotTest(@RequestBody String body) {
 
-        log.info("test body : {}",body);
+        log.info("test body : {body}");
         return "{\n" +
                 "  \"version\": \"2.0\",\n" +
                 "  \"template\": {\n" +
                 "    \"outputs\": [\n" +
                 "      {\n" +
                 "        \"textCard\": {\n" +
-                "          \"title\": \"챗봇 관리자센터에 오신 것을 환영합니다.\",\n" +
-                "          \"description\": \"챗봇 관리자센터로 챗봇을 제작해 보세요. \\n카카오톡 채널과 연결하여, 이용자에게 챗봇 서비스를 제공할 수 있습니다.\",\n" +
+                "          \"title\": \"서비스를 이용하려면 회원가입이 필요합니다.\",\n" +
+                "          \"description\": \"회원가입 시 이곳에 적는 글이 메모에 저장되어 PC에서도 확인하실 수 있습니다. \",\n" +
                 "          \"buttons\": [\n" +
                 "            {\n" +
-                "              \"action\": \"webLink\",\n" +
-                "              \"label\": \"챗봇 만들러 가기\",\n" +
-                "              \"webLinkUrl\": \"https://chatbot.kakao.com/\"\n" +
+                "              \"action\": \"block\",\n" +
+                "              \"blockId\": \"656011bc501358649ef6974a\",\n" +
+                "              \"label\": \"회원가입\",\n" +
                 "            }\n" +
                 "          ]\n" +
                 "        }\n" +
@@ -56,4 +56,3 @@ public class ChatBotController {
 
     }
 }
-
