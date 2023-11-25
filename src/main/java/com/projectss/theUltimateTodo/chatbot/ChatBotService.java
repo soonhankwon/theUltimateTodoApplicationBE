@@ -116,8 +116,7 @@ public class ChatBotService {
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
             String utterance = jsonNode.path("userRequest").path("utterance").asText();
             log.info("openID : {}, utterance : {} ",openId,utterance);
-            if (userRepository.existsUserByOpenId(openId)){
-
+            if (!userRepository.existsUserByOpenId(openId)){
                 return "{\n" +
                         "  \"version\": \"2.0\",\n" +
                         "  \"template\": {\n" +
