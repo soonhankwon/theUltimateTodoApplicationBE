@@ -36,6 +36,23 @@ public class ChatBotService {
 
             // intent의 name이 "인증 블록"인지 확인
             if ("인증 블록".equals(intentName)) {
+
+                if (!userRepository.existsById(appUserId)){
+                    log.info("회원가입이 되지 않은 회원입니다. ");
+                    return "{\n" +
+                            "    \"version\": \"2.0\",\n" +
+                            "    \"template\": {\n" +
+                            "        \"outputs\": [\n" +
+                            "            {\n" +
+                            "                \"simpleText\": {\n" +
+                            "                    \"text\": \"가입되지 않은 회원입니다. 사이트에서 먼저 가입을 진행해주세요.\"\n" +
+                            "                }\n" +
+                            "            }\n" +
+                            "        ]\n" +
+                            "    }\n" +
+                            "}";
+                }
+
                 if (userRepository.existsUserByOpenId(openId)){
                     log.info("이미 가입된 회원");
                     return "{\n" +
@@ -71,35 +88,90 @@ public class ChatBotService {
             // 처리가 완료되면 응답을 반환
 
         } catch (IOException e) {
-            log.info("catch 구문");
+            log.info("catch 구문 : {}",e.toString());
             e.printStackTrace();
             // 처리 중 오류가 발생한 경우 예외 처리
-            throw new RuntimeException("처리 중 오류가 발생하였습니다.", e);
+            return "{\n" +
+                    "    \"version\": \"2.0\",\n" +
+                    "    \"template\": {\n" +
+                    "        \"outputs\": [\n" +
+                    "            {\n" +
+                    "                \"simpleText\": {\n" +
+                    "                    \"text\": \"처리 중 오류가 발생했습니다.\"\n" +
+                    "                }\n" +
+                    "            }\n" +
+                    "        ]\n" +
+                    "    }\n" +
+                    "}";
         }
 
     }
 
     public String fallback(String body){
-        return "{\n" +
-                "    \"version\": \"2.0\",\n" +
-                "    \"template\": {\n" +
-                "        \"outputs\": [\n" +
-                "            {\n" +
-                "                \"simpleText\": {\n" +
-                "                    \"text\": \"메모에 저장되었습니다. POST.\"\n" +
-                "                }\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    }\n" +
-                "}";
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(body);
+
+            // openId 값 가져오기
+            String openId = jsonNode.path("userRequest").path("user").path("id").asText();
+            String utterance = jsonNode.path("userRequest").path("utterance").asText();
+            log.info("openID : {}, utterance : {} ",openId,utterance);
+            if (userRepository.existsUserByOpenId(openId)){
+
+                return "{\n" +
+                        "  \"version\": \"2.0\",\n" +
+                        "  \"template\": {\n" +
+                        "    \"outputs\": [\n" +
+                        "      {\n" +
+                        "        \"textCard\": {\n" +
+                        "          \"title\": \"서비스를 이용하려면 회원가입이 필요합니다. \",\n" +
+                        "          \"description\": \" 회원가입 시 이곳에 적는 글이 메모에 저장되어 PC에서도 확인하실 수 있습니다. \",\n" +
+                        "          \"buttons\": [\n" +
+                        "            {\n" +
+                        "              \"action\": \"block\",\n" +
+                        "              \"label\": \"회원가입\",\n" +
+                        "              \"blockId\": \"656011bc501358649ef6974a\"\n" +
+                        "            },\n" +
+                        "          ]\n" +
+                        "        }\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  }\n" +
+                        "}";
+            }else{
+                //todo utterance 를 메모에 진짜 저장하는 로직
+                return "{\n" +
+                        "    \"version\": \"2.0\",\n" +
+                        "    \"template\": {\n" +
+                        "        \"outputs\": [\n" +
+                        "            {\n" +
+                        "                \"simpleText\": {\n" +
+                        "                    \"text\": \" 메모에 저장되었습니다. \"\n" +
+                        "                }\n" +
+                        "            }\n" +
+                        "        ]\n" +
+                        "    }\n" +
+                        "}";
+            }
+
+        } catch (IOException e) {
+            log.info("catch 구문 : {}",e.toString());
+            e.printStackTrace();
+            // 처리 중 오류가 발생한 경우 예외 처리
+            return "{\n" +
+                    "    \"version\": \"2.0\",\n" +
+                    "    \"template\": {\n" +
+                    "        \"outputs\": [\n" +
+                    "            {\n" +
+                    "                \"simpleText\": {\n" +
+                    "                    \"text\": \"처리 중 오류가 발생했습니다.\"\n" +
+                    "                }\n" +
+                    "            }\n" +
+                    "        ]\n" +
+                    "    }\n" +
+                    "}";
+        }
 
     }
-    private static String extractAppUserId(String text) {
-        int colonIndex = text.indexOf("app_user_id\\\":");
-        int braceIndex = text.indexOf("}");
-        if (colonIndex != -1 && braceIndex != -1) {
-            return text.substring(colonIndex + 1, braceIndex).trim();
-        }
-        return ""; // 추출 실패 시 null 반환 또는 예외 처리
-    }
+
 }
