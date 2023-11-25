@@ -15,9 +15,8 @@ public class ChatBotController {
     public String chatbot(@RequestBody String body) {
 
         log.info("chatbot register body :  {}",body);
-        String result = chatBotService.register(body);
-        log.info("result : {}",result);
-        return result;
+
+        return chatBotService.register(body);
     }
     @PostMapping("/chatbot/fallback")
     public String chatbotPost(@RequestBody String body) {
