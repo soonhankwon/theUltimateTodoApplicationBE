@@ -123,30 +123,15 @@ public class ChatBotService {
                         "    \"outputs\": [\n" +
                         "      {\n" +
                         "        \"simpleText\": {\n" +
-                        "          \"text\": \"토트넘 선수 리스트입니다.\"\n" +
+                        "          \"text\": \"서비스를 이용하기 위해서는 회원 가입이 필요합니다. 아래의 버튼을 클릭하거나, 회원가입이라고 입력해주세요\"\n" +
                         "        }\n" +
                         "      }\n" +
                         "    ],\n" +
                         "    \"quickReplies\": [\n" +
                         "      {\n" +
-                        "        \"messageText\": \"손흥민\",\n" +
+                        "        \"messageText\": \"회원가입\",\n" +
                         "        \"action\": \"message\",\n" +
-                        "        \"label\": \"손흥민\"\n" +
-                        "      },\n" +
-                        "      {\n" +
-                        "        \"messageText\": \"헤리케인\",\n" +
-                        "        \"action\": \"message\",\n" +
-                        "        \"label\": \"헤리케인\"\n" +
-                        "      },\n" +
-                        "      {\n" +
-                        "        \"messageText\": \"에릭센\",\n" +
-                        "        \"action\": \"message\",\n" +
-                        "        \"label\": \"에릭센\"\n" +
-                        "      },\n" +
-                        "      {\n" +
-                        "        \"messageText\": \"요리스\",\n" +
-                        "        \"action\": \"message\",\n" +
-                        "        \"label\": \"요리스\"\n" +
+                        "        \"label\": \"회원가입\"\n" +
                         "      }\n" +
                         "    ]\n" +
                         "  }\n" +
