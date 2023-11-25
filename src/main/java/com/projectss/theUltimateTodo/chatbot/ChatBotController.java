@@ -43,11 +43,6 @@ public class ChatBotController {
                 "          \"buttons\": [\n" +
                 "            {\n" +
                 "              \"action\": \"webLink\",\n" +
-                "              \"label\": \"소개 보러가기\",\n" +
-                "              \"webLinkUrl\": \"https://chatbot.kakao.com/docs/getting-started-overview/\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "              \"action\": \"webLink\",\n" +
                 "              \"label\": \"챗봇 만들러 가기\",\n" +
                 "              \"webLinkUrl\": \"https://chatbot.kakao.com/\"\n" +
                 "            }\n" +
@@ -56,7 +51,7 @@ public class ChatBotController {
                 "      }\n" +
                 "    ]\n" +
                 "  }\n" +
-                "}"
+                "}";
 
 
     }
