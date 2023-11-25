@@ -4,11 +4,21 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectss.theUltimateTodo.OAuth.User;
 import com.projectss.theUltimateTodo.OAuth.UserRepository;
+import com.projectss.theUltimateTodo.memo.domain.Directory;
+import com.projectss.theUltimateTodo.memo.domain.Memo;
+import com.projectss.theUltimateTodo.memo.domain.MemoStore;
+import com.projectss.theUltimateTodo.memo.dto.DirectoryRequest;
+import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
+import com.projectss.theUltimateTodo.memo.repository.DirectoryRepository;
+import com.projectss.theUltimateTodo.memo.repository.MemoStoreRepository;
+import com.projectss.theUltimateTodo.memo.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -16,8 +26,10 @@ import java.io.IOException;
 public class ChatBotService {
 
     private final UserRepository userRepository;
+    private final MemoStoreRepository memoStoreRepository;
+    private final DirectoryRepository directoryRepository;
 
-    public String register(String body){
+    public String register(String body) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(body);
@@ -28,16 +40,16 @@ public class ChatBotService {
             String profile = jsonNode.path("action").path("params").path("profile").asText();
             JsonNode profileNode = objectMapper.readTree(profile);
             String appUserId = profileNode.path("app_user_id").asText();
-            log.info("profile : {}, appUserId : {}",profile,appUserId);
+            log.info("profile : {}, appUserId : {}", profile, appUserId);
             // openId 값 가져오기
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
 
-            log.info("intentName : {}, appUserId : {}, openId {}",intentName,appUserId,openId);
+            log.info("intentName : {}, appUserId : {}, openId {}", intentName, appUserId, openId);
 
             // intent의 name이 "인증 블록"인지 확인
             if ("인증 블록".equals(intentName)) {
 
-                if (!userRepository.existsById(appUserId)){
+                if (!userRepository.existsById(appUserId)) {
                     log.info("회원가입이 되지 않은 회원입니다. ");
                     return "{\n" +
                             "    \"version\": \"2.0\",\n" +
@@ -53,7 +65,7 @@ public class ChatBotService {
                             "}";
                 }
 
-                if (userRepository.existsUserByOpenId(openId)){
+                if (userRepository.existsUserByOpenId(openId)) {
                     log.info("이미 가입된 회원");
                     return "{\n" +
                             "    \"version\": \"2.0\",\n" +
@@ -68,7 +80,7 @@ public class ChatBotService {
                             "    }\n" +
                             "}";
                 }
-                User user = userRepository.findById(appUserId).orElseThrow(()->new RuntimeException("처리 중 오류가 발생하였습니다."));
+                User user = userRepository.findById(appUserId).orElseThrow(() -> new RuntimeException("처리 중 오류가 발생하였습니다."));
                 user.setOpenId(openId);
                 userRepository.save(user);
             }
@@ -88,7 +100,7 @@ public class ChatBotService {
             // 처리가 완료되면 응답을 반환
 
         } catch (IOException e) {
-            log.info("catch 구문 : {}",e.toString());
+            log.info("catch 구문 : {}", e.toString());
             e.printStackTrace();
             // 처리 중 오류가 발생한 경우 예외 처리
             return "{\n" +
@@ -107,7 +119,7 @@ public class ChatBotService {
 
     }
 
-    public String fallback(String body){
+    public String fallback(String body) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(body);
@@ -115,8 +127,8 @@ public class ChatBotService {
             // openId 값 가져오기
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
             String utterance = jsonNode.path("userRequest").path("utterance").asText();
-            log.info("openID : {}, utterance : {} ",openId,utterance);
-            if (!userRepository.existsUserByOpenId(openId)){
+            log.info("openID : {}, utterance : {} ", openId, utterance);
+            if (!userRepository.existsUserByOpenId(openId)) {
                 return "{\n" +
                         "\"version\": \"2.0\",\n" +
                         "  \"template\": {\n" +
@@ -136,8 +148,32 @@ public class ChatBotService {
                         "    ]\n" +
                         "  }\n" +
                         "}";
-            }else{
-                //todo utterance 를 메모에 진짜 저장하는 로직
+            } else {
+                User user = userRepository.findUserByOpenId(openId)
+                        .orElseThrow(() -> new IllegalStateException("no user by open id"));
+
+                MemoStore memoStore = memoStoreRepository.findMemoStoreByEmail(user.getUserEmail())
+                        .orElseThrow(() -> new IllegalStateException("no memo store by user email"));
+
+                Optional<Directory> optionalMobileDirectory = memoStore.getDirectories()
+                        .stream()
+                        .filter(i -> i.getName().equals("mobile-directory"))
+                        .findFirst();
+
+                Memo memo = new Memo(new MemoRequest(LocalDateTime.now() + " memo", utterance));
+                if (optionalMobileDirectory.isEmpty()) {
+                    Directory mobileDirectory = new Directory(new DirectoryRequest("mobile-directory"));
+                    directoryRepository.save(mobileDirectory);
+                    memoStore.saveDirectory(mobileDirectory);
+
+                    mobileDirectory.saveMemo(memo);
+                    memoStoreRepository.save(memoStore);
+                } else {
+                    Directory mobileDirectory = optionalMobileDirectory.get();
+                    mobileDirectory.saveMemo(memo);
+                    directoryRepository.save(mobileDirectory);
+                }
+
                 return "{\n" +
                         "    \"version\": \"2.0\",\n" +
                         "    \"template\": {\n" +
@@ -153,7 +189,7 @@ public class ChatBotService {
             }
 
         } catch (IOException e) {
-            log.info("catch 구문 : {}",e.toString());
+            log.info("catch 구문 : {}", e.toString());
             e.printStackTrace();
             // 처리 중 오류가 발생한 경우 예외 처리
             return "{\n" +
