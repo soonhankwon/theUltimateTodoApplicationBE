@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectss.theUltimateTodo.OAuth.User;
 import com.projectss.theUltimateTodo.OAuth.UserRepository;
+import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,10 @@ public class ChatBotService {
             // intent의 name 값 가져오기
             String intentName = jsonNode.path("intent").path("name").asText();
             // app_user_id 값 가져오기
-            String appUserId = jsonNode.path("action").path("params").path("profile").path("app_user_id").asText();
+            String profile = jsonNode.path("action").path("params").path("profile").asText();
+            JsonNode profileNode = objectMapper.readTree(profile);
+            String appUserId = profileNode.path("app_user_id").asText();
+            log.info("profile : {}, appUserId : {}",profile,appUserId);
             // openId 값 가져오기
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
 
