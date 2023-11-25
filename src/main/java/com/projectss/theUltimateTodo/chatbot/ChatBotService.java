@@ -120,17 +120,20 @@ public class ChatBotService {
                 return "{\n" +
                         "  \"version\": \"2.0\",\n" +
                         "  \"template\": {\n" +
-                        "    \"outputs\": [\n" +
+                        "    outputs: [\n" +
                         "      {\n" +
-                        "        \"textCard\": {\n" +
-                        "          \"title\": \"서비스를 이용하려면 회원가입이 필요합니다. \",\n" +
-                        "          \"description\": \" 회원가입 시 이곳에 적는 글이 메모에 저장되어 PC에서도 확인하실 수 있습니다. \",\n" +
-                        "          \"buttons\": [\n" +
-                        "            {\n" +
-                        "              \"action\": \"block\",\n" +
-                        "              \"blockId\": \"656011bc501358649ef6974a\"\n" +
-                        "            },\n" +
-                        "          ]\n" +
+                        "        \"simpleText\": {\n" +
+                        "          \"text\": \"서비스를 이용하시려면 회원가입을 해주세요. 회원가입이라고 입력, 혹은 아래 버튼을 클릭해주세요.\"\n" +
+                        "        }\n" +
+                        "      },\n" +
+                        "    ],\n" +
+                        "    quickReplies: [\n" +
+                        "      {\n" +
+                        "        action: \"block\",\n" +
+                        "        label: \"회원가입\",\n" +
+                        "        message: \"회원가입\",\n" +
+                        "        data: {\n" +
+                        "          \"blockId\": \"655ef8854e318c79200ff6a2\"\n" +
                         "        }\n" +
                         "      }\n" +
                         "    ]\n" +
