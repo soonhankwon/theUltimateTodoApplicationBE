@@ -25,13 +25,11 @@ public class ChatBotService {
             // intent의 name 값 가져오기
             String intentName = jsonNode.path("intent").path("name").asText();
             // app_user_id 값 가져오기
-            String profile = jsonNode.path("action").path("params").path("profile").asText();
-            log.info("profile : {}", profile);
-            String appUserId = extractAppUserId(profile);
+            String appUserId = jsonNode.path("action").path("params").path("profile").path("app_user_id").asText();
             // openId 값 가져오기
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
+
             log.info("intentName : {}, appUserId : {}, openId {}",intentName,appUserId,openId);
-            if (appUserId.equals("")) throw new RuntimeException("잘못된 user입니다.");
 
             // intent의 name이 "인증 블록"인지 확인
             if ("인증 블록".equals(intentName)) {
@@ -91,7 +89,7 @@ public class ChatBotService {
                 "}";
 
     }
-    private String extractAppUserId(String text) {
+    private static String extractAppUserId(String text) {
         int colonIndex = text.indexOf("app_user_id\\\":");
         int braceIndex = text.indexOf("}");
         if (colonIndex != -1 && braceIndex != -1) {
