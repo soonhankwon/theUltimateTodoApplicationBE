@@ -26,11 +26,12 @@ public class ChatBotService {
             String intentName = jsonNode.path("intent").path("name").asText();
             // app_user_id 값 가져오기
             String profile = jsonNode.path("action").path("params").path("profile").asText();
+            log.info("profile : {}", profile);
             String appUserId = extractAppUserId(profile);
-            if (appUserId.equals("")) throw new RuntimeException("잘못된 user입니다.");
             // openId 값 가져오기
             String openId = jsonNode.path("userRequest").path("user").path("id").asText();
             log.info("intentName : {}, appUserId : {}, openId {}",intentName,appUserId,openId);
+            if (appUserId.equals("")) throw new RuntimeException("잘못된 user입니다.");
 
             // intent의 name이 "인증 블록"인지 확인
             if ("인증 블록".equals(intentName)) {
