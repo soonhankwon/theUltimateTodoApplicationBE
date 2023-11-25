@@ -130,7 +130,7 @@ public class ChatBotService {
                         "    quickReplies: [\n" +
                         "      {\n" +
                         "        \"messageText\": \"회원가입\",\n" +
-                        "        \"action\": \"message\",\n" +
+                        "        \"action\": \"Message\",\n" +
                         "        \"label\": \"회원가입\"\n" +
                         "      }\n" +
                         "    ]\n" +
