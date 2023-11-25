@@ -55,4 +55,31 @@ public class ChatBotController {
 
 
     }
+    @PostMapping("/chatbot/test2")
+    public String chatbotTest2(@RequestBody String body) {
+
+        log.info("test body : {}",body);
+        return "{\n" +
+                "  \"version\": \"2.0\",\n" +
+                "  \"template\": {\n" +
+                "    \"outputs\": [\n" +
+                "      {\n" +
+                "        \"textCard\": {\n" +
+                "          \"title\": \"회원가입 하실?\",\n" +
+                "          \"description\": \"회원가입 하세요\",\n" +
+                "          \"buttons\": [\n" +
+                "            {\n" +
+                "              \"action\": \"block\",\n" +
+                "              \"label\": \"회원가입\",\n" +
+                "              \"blockId\": \"6561888323f0b96840d02c16\"\n" +
+                "            }\n" +
+                "          ]\n" +
+                "        }\n" +
+                "      }\n" +
+                "    ]\n" +
+                "  }\n" +
+                "}";
+
+
+    }
 }
