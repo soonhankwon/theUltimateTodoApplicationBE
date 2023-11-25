@@ -31,7 +31,7 @@ public class ChatBotController {
     @PostMapping("/chatbot/test")
     public String chatbotTest(@RequestBody String body) {
 
-
+        log.info("test body : {body}");
         return "{\n" +
                 "  \"version\": \"2.0\",\n" +
                 "  \"template\": {\n" +
