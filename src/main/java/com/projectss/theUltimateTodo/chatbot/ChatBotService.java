@@ -118,37 +118,39 @@ public class ChatBotService {
             log.info("openID : {}, utterance : {} ",openId,utterance);
             if (!userRepository.existsUserByOpenId(openId)){
                 return "{\n" +
-                        "      version: \"2.0\",\n" +
-                        "      template: {\n" +
-                        "        outputs: [\n" +
-                        "          {\n" +
-                        "            \"simpleText\": {\n" +
-                        "              \"text\": \"다음과 같은 상황에서 어떻게 대답하겠습니까? 해당 숫자를 입력해 주세요. \\n 친구: 나 기분 안 좋아서 옷 샀어 \\n 1. 왜 기분 안 좋아? \\n 2. 무슨 옷 샀어?\"\n" +
-                        "            }\n" +
-                        "          },\n" +
-                        "        ],\n" +
-                        "        quickReplies: [\n" +
-                        "          {\n" +
-                        "            action: \"block\",\n" +
-                        "            label: \"1번\",\n" +
-                        "            message: \"1번\",\n" +
-                        "            data: {\n" +
-                        "              \"blockId\": \"629252d751c40d32c6d8f23b\"\n" +
-                        "  \n" +
-                        "            }\n" +
-                        "          },\n" +
-                        "          {\n" +
-                        "            action: \"block\",\n" +
-                        "            label: \"2번\",\n" +
-                        "            message: \"2번\",\n" +
-                        "            data: {\n" +
-                        "              \"blockId\": \"629252d751c40d32c6d8f23b\",\n" +
-                        "              \n" +
-                        "            }\n" +
-                        "          }\n" +
-                        "        ]\n" +
+                        "\"version\": \"2.0\",\n" +
+                        "  \"template\": {\n" +
+                        "    \"outputs\": [\n" +
+                        "      {\n" +
+                        "        \"simpleText\": {\n" +
+                        "          \"text\": \"토트넘 선수 리스트입니다.\"\n" +
+                        "        }\n" +
                         "      }\n" +
-                        "    }";
+                        "    ],\n" +
+                        "    \"quickReplies\": [\n" +
+                        "      {\n" +
+                        "        \"messageText\": \"손흥민\",\n" +
+                        "        \"action\": \"message\",\n" +
+                        "        \"label\": \"손흥민\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"messageText\": \"헤리케인\",\n" +
+                        "        \"action\": \"message\",\n" +
+                        "        \"label\": \"헤리케인\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"messageText\": \"에릭센\",\n" +
+                        "        \"action\": \"message\",\n" +
+                        "        \"label\": \"에릭센\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "        \"messageText\": \"요리스\",\n" +
+                        "        \"action\": \"message\",\n" +
+                        "        \"label\": \"요리스\"\n" +
+                        "      }\n" +
+                        "    ]\n" +
+                        "  }\n" +
+                        "}";
             }else{
                 //todo utterance 를 메모에 진짜 저장하는 로직
                 return "{\n" +
