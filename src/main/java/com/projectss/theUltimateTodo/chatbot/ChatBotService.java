@@ -118,24 +118,37 @@ public class ChatBotService {
             log.info("openID : {}, utterance : {} ",openId,utterance);
             if (!userRepository.existsUserByOpenId(openId)){
                 return "{\n" +
-                        "  \"version\": \"2.0\",\n" +
-                        "  \"template\": {\n" +
-                        "    outputs: [\n" +
-                        "      {\n" +
-                        "        \"simpleText\": {\n" +
-                        "          \"text\": \"서비스를 이용하시려면 회원가입을 해주세요. 회원가입이라고 입력, 혹은 아래 버튼을 클릭해주세요.\"\n" +
-                        "        }\n" +
-                        "      },\n" +
-                        "    ],\n" +
-                        "    quickReplies: [\n" +
-                        "      {\n" +
-                        "        \"messageText\": \"회원가입\",\n" +
-                        "        \"action\": \"Message\",\n" +
-                        "        \"label\": \"회원가입\"\n" +
+                        "      version: \"2.0\",\n" +
+                        "      template: {\n" +
+                        "        outputs: [\n" +
+                        "          {\n" +
+                        "            \"simpleText\": {\n" +
+                        "              \"text\": \"다음과 같은 상황에서 어떻게 대답하겠습니까? 해당 숫자를 입력해 주세요. \\n 친구: 나 기분 안 좋아서 옷 샀어 \\n 1. 왜 기분 안 좋아? \\n 2. 무슨 옷 샀어?\"\n" +
+                        "            }\n" +
+                        "          },\n" +
+                        "        ],\n" +
+                        "        quickReplies: [\n" +
+                        "          {\n" +
+                        "            action: \"block\",\n" +
+                        "            label: \"1번\",\n" +
+                        "            message: \"1번\",\n" +
+                        "            data: {\n" +
+                        "              \"blockId\": \"629252d751c40d32c6d8f23b\"\n" +
+                        "  \n" +
+                        "            }\n" +
+                        "          },\n" +
+                        "          {\n" +
+                        "            action: \"block\",\n" +
+                        "            label: \"2번\",\n" +
+                        "            message: \"2번\",\n" +
+                        "            data: {\n" +
+                        "              \"blockId\": \"629252d751c40d32c6d8f23b\",\n" +
+                        "              \n" +
+                        "            }\n" +
+                        "          }\n" +
+                        "        ]\n" +
                         "      }\n" +
-                        "    ]\n" +
-                        "  }\n" +
-                        "}";
+                        "    }";
             }else{
                 //todo utterance 를 메모에 진짜 저장하는 로직
                 return "{\n" +
