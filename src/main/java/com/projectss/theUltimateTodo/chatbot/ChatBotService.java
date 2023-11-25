@@ -128,7 +128,6 @@ public class ChatBotService {
                         "          \"buttons\": [\n" +
                         "            {\n" +
                         "              \"action\": \"block\",\n" +
-                        "              \"label\": \"회원가입\",\n" +
                         "              \"blockId\": \"656011bc501358649ef6974a\"\n" +
                         "            },\n" +
                         "          ]\n" +
