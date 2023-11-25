@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectss.theUltimateTodo.OAuth.User;
 import com.projectss.theUltimateTodo.OAuth.UserRepository;
-import io.swagger.v3.core.util.Json;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -38,13 +37,14 @@ public class ChatBotService {
             // intent의 name이 "인증 블록"인지 확인
             if ("인증 블록".equals(intentName)) {
                 if (userRepository.existsUserByOpenId(openId)){
+                    log.info("이미 가입된 회원");
                     return "{\n" +
                             "    \"version\": \"2.0\",\n" +
                             "    \"template\": {\n" +
                             "        \"outputs\": [\n" +
                             "            {\n" +
                             "                \"simpleText\": {\n" +
-                            "                    \"text\": \" 이미 가입된 회원입니다. \n 채팅창에 입력된 값은 메모장에 저장됩니다. \"\n" +
+                            "                    \"text\": \" 이미 가입된 회원입니다. 채팅창에 입력된 값은 메모장에 저장됩니다. \"\n" +
                             "                }\n" +
                             "            }\n" +
                             "        ]\n" +
@@ -55,7 +55,7 @@ public class ChatBotService {
                 user.setOpenId(openId);
                 userRepository.save(user);
             }
-
+            log.info("success logic");
             return "{\n" +
                     "    \"version\": \"2.0\",\n" +
                     "    \"template\": {\n" +
@@ -71,6 +71,7 @@ public class ChatBotService {
             // 처리가 완료되면 응답을 반환
 
         } catch (IOException e) {
+            log.info("catch 구문");
             e.printStackTrace();
             // 처리 중 오류가 발생한 경우 예외 처리
             throw new RuntimeException("처리 중 오류가 발생하였습니다.", e);
