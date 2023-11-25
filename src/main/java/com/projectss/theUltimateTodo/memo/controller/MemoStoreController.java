@@ -32,8 +32,9 @@ public class MemoStoreController {
     public ResponseEntity<String> createMemoStore(@AuthenticationPrincipal SecurityUser securityUser) {
         String email = securityUser.getUsername();
         memoStoreService.createMemoStoreByUser(email);
-        return ResponseEntity.status(HttpStatus.CREATED).body("ok");
+        return ResponseEntity.status(HttpStatus.CREATED).body("created");
     }
+
     @Operation(summary = "메모 모두 delete - 테스트용")
     @DeleteMapping
     public ResponseEntity<String> deleteMemoStore(@AuthenticationPrincipal SecurityUser securityUser) {
