@@ -129,12 +129,9 @@ public class ChatBotService {
                         "    ],\n" +
                         "    quickReplies: [\n" +
                         "      {\n" +
-                        "        action: \"block\",\n" +
-                        "        label: \"회원가입\",\n" +
-                        "        message: \"회원가입\",\n" +
-                        "        data: {\n" +
-                        "          \"blockId\": \"655ef8854e318c79200ff6a2\"\n" +
-                        "        }\n" +
+                        "        \"messageText\": \"회원가입\",\n" +
+                        "        \"action\": \"message\",\n" +
+                        "        \"label\": \"회원가입\"\n" +
                         "      }\n" +
                         "    ]\n" +
                         "  }\n" +
