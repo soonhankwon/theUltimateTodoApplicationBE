@@ -47,7 +47,7 @@ public class OpenApiService {
 
         body.add("grant_type","authorization_code");
         body.add("client_id", kakaoKey);
-        body.add("redirect_uri","http://localhost:5173/openApi/kakao");
+        body.add("redirect_uri","https://memo-fe-woad.vercel.app/openApi/kakao");
         body.add("code",code);
         body.add("client_secret",clientSecret);
 
