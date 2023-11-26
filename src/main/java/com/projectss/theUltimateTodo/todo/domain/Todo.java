@@ -2,15 +2,13 @@ package com.projectss.theUltimateTodo.todo.domain;
 
 import com.projectss.theUltimateTodo.todo.dto.TodoDTO;
 import com.projectss.theUltimateTodo.todo.quickInput.dto.ApiResponse;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
@@ -18,11 +16,10 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
-@Entity
 @NoArgsConstructor
+@Document(collection = "todos")
 public class Todo {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @NotBlank
     private String content;

@@ -7,7 +7,6 @@ import com.projectss.theUltimateTodo.todo.repository.TodoRepository;
 import com.projectss.theUltimateTodo.todo.repository.TodoStoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,6 @@ public class TodoService {
     private final TodoStoreRepository todoStoreRepository;
     private final TodoStoreService todoStoreService;
 
-    @Transactional
     public void add(String email, TodoDTO todoDTO) {
         TodoStore todoStore = todoStoreRepository.findTodoStoreByEmail(email)
                 .orElseThrow();
@@ -52,7 +50,6 @@ public class TodoService {
         return todos;
     }
 
-    @Transactional
     public void updateTodo(String email, String todoId, TodoDTO todoDTO) {
         if (!todoStoreRepository.existsByEmail(email)) {
             throw new IllegalStateException("no todo store by user id");
@@ -63,7 +60,6 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    @Transactional
     public void delete(String email, String todoId) {
         if (!todoStoreRepository.existsByEmail(email)) {
             throw new IllegalStateException("no todo store by user id");
