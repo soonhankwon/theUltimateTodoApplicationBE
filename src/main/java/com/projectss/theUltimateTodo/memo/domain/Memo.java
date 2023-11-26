@@ -1,6 +1,8 @@
 package com.projectss.theUltimateTodo.memo.domain;
 
+import com.projectss.theUltimateTodo.memo.dto.MemoContentUpdateRequest;
 import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
+import com.projectss.theUltimateTodo.memo.dto.MemoTitleUpdateRequest;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,8 +27,15 @@ public class Memo {
         this.content = memoRequest.content();
     }
 
-    public void update(MemoRequest dto) {
-        this.title = dto.title();
-        this.content = dto.content();
+    public <T> void update(T request) {
+        if(request instanceof MemoTitleUpdateRequest) {
+            this.title = ((MemoTitleUpdateRequest) request).title();
+            return;
+        }
+        if(request instanceof MemoContentUpdateRequest) {
+            this.content = ((MemoContentUpdateRequest) request).content();
+            return;
+        }
+        throw new IllegalStateException("request type invalid");
     }
 }
