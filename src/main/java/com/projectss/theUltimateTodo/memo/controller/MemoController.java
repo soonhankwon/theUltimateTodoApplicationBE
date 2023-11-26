@@ -1,7 +1,9 @@
 package com.projectss.theUltimateTodo.memo.controller;
 
 import com.projectss.theUltimateTodo.OAuth.SecurityUser;
+import com.projectss.theUltimateTodo.memo.dto.MemoContentUpdateRequest;
 import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
+import com.projectss.theUltimateTodo.memo.dto.MemoTitleUpdateRequest;
 import com.projectss.theUltimateTodo.memo.service.MemoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -39,13 +41,23 @@ public class MemoController {
         return ResponseEntity.ok().body("created");
     }
 
-    @Operation(summary = "메모 업데이트 API")
+    @Operation(summary = "메모 타이틀 업데이트 API")
     @PatchMapping("/{memoId}")
     public ResponseEntity<String> updateMemo(@AuthenticationPrincipal SecurityUser securityUser,
                                              @PathVariable String memoId,
-                                             @RequestBody MemoRequest dto) {
+                                             @RequestBody MemoTitleUpdateRequest request) {
         String email = securityUser.getUsername();
-        memoService.updateMemo(email, memoId, dto);
+        memoService.updateMemoTitle(email, memoId, request);
+        return ResponseEntity.ok().body("updated");
+    }
+
+    @Operation(summary = "메모 컨텐츠 업데이트 API")
+    @PutMapping("/{memoId}")
+    public ResponseEntity<String> updateMemo(@AuthenticationPrincipal SecurityUser securityUser,
+                                             @PathVariable String memoId,
+                                             @RequestBody MemoContentUpdateRequest request) {
+        String email = securityUser.getUsername();
+        memoService.updateMemoContent(email, memoId, request);
         return ResponseEntity.ok().body("updated");
     }
 
