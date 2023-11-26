@@ -15,7 +15,7 @@ public class MemoStoreService {
 
     public void createMemoStoreByUser(String email) {
         if (memoStoreRepository.existsByEmail(email)) {
-            throw new IllegalStateException("already memo store exists by user email");
+            return ;
         }
         MemoStore memoStore = new MemoStore(email);
         memoStoreRepository.save(memoStore);

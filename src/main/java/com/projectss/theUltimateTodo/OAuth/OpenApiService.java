@@ -111,7 +111,7 @@ public class OpenApiService {
         userRepository.save(newUser);
         //유저 DB 저장시 유저의 메모스토어 생성
         memoStoreService.createMemoStoreByUser(email);
-//        todoStoreService.createTodoStoreByUser(email);
+        todoStoreService.createTodoStoreByUser(email);
     }
 //
 //
