@@ -2,6 +2,7 @@ package com.projectss.theUltimateTodo.memo.controller;
 
 import com.projectss.theUltimateTodo.OAuth.SecurityUser;
 import com.projectss.theUltimateTodo.memo.domain.MemoStore;
+import com.projectss.theUltimateTodo.memo.dto.MemoStoreRequest;
 import com.projectss.theUltimateTodo.memo.service.MemoStoreService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -33,6 +34,15 @@ public class MemoStoreController {
         String email = securityUser.getUsername();
         memoStoreService.createMemoStoreByUser(email);
         return ResponseEntity.status(HttpStatus.CREATED).body("created");
+    }
+
+    @Operation(summary = "로컬 메모 클라우드 동기화 API")
+    @PostMapping("/sync")
+    public ResponseEntity<String> syncLocalMemoToCloud(@AuthenticationPrincipal SecurityUser securityUser,
+                                                       @RequestBody MemoStoreRequest request) {
+        String email = securityUser.getUsername();
+        memoStoreService.syncLocalMemoStoreToCloud(email, request);
+        return ResponseEntity.status(HttpStatus.CREATED).body("synced");
     }
 
     @Operation(summary = "메모 모두 delete - 테스트용")
