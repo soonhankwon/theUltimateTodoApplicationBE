@@ -3,7 +3,9 @@ package com.projectss.theUltimateTodo.memo.service;
 import com.projectss.theUltimateTodo.memo.domain.Directory;
 import com.projectss.theUltimateTodo.memo.domain.Memo;
 import com.projectss.theUltimateTodo.memo.domain.MemoStore;
+import com.projectss.theUltimateTodo.memo.dto.MemoContentUpdateRequest;
 import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
+import com.projectss.theUltimateTodo.memo.dto.MemoTitleUpdateRequest;
 import com.projectss.theUltimateTodo.memo.repository.DirectoryRepository;
 import com.projectss.theUltimateTodo.memo.repository.MemoRepository;
 import com.projectss.theUltimateTodo.memo.repository.MemoStoreRepository;
@@ -43,13 +45,23 @@ public class MemoService {
         directoryRepository.save(directory);
     }
 
-    public void updateMemo(String email, String memoId, MemoRequest dto) {
+    public void updateMemoTitle(String email, String memoId, MemoTitleUpdateRequest request) {
         if(!memoStoreRepository.existsByEmail(email)) {
             throw new IllegalStateException("no memo store by user email");
         }
         Memo memo = memoRepository.findById(memoId)
                 .orElseThrow(() -> new IllegalStateException("no memo by memo id"));
-        memo.update(dto);
+        memo.update(request);
+        memoRepository.save(memo);
+    }
+
+    public void updateMemoContent(String email, String memoId, MemoContentUpdateRequest request) {
+        if(!memoStoreRepository.existsByEmail(email)) {
+            throw new IllegalStateException("no memo store by user email");
+        }
+        Memo memo = memoRepository.findById(memoId)
+                .orElseThrow(() -> new IllegalStateException("no memo by memo id"));
+        memo.update(request);
         memoRepository.save(memo);
     }
 
