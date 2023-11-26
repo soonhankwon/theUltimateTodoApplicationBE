@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectss.theUltimateTodo.memo.service.MemoStoreService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import com.projectss.theUltimateTodo.todo.service.TodoStoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,7 @@ public class OpenApiService {
     private final TokenService tokenService;
     private final UserRepository userRepository;
     private final MemoStoreService memoStoreService;
+    private final TodoStoreService todoStoreService;
 
     @Value("${kakao.rest-key}")
     private String kakaoKey;
@@ -109,6 +111,7 @@ public class OpenApiService {
         userRepository.save(newUser);
         //유저 DB 저장시 유저의 메모스토어 생성
         memoStoreService.createMemoStoreByUser(email);
+        todoStoreService.createTodoStoreByUser(email);
     }
 //
 //
