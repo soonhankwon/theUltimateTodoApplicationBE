@@ -10,6 +10,7 @@ import com.projectss.theUltimateTodo.memo.domain.MemoStore;
 import com.projectss.theUltimateTodo.memo.dto.DirectoryRequest;
 import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
 import com.projectss.theUltimateTodo.memo.repository.DirectoryRepository;
+import com.projectss.theUltimateTodo.memo.repository.MemoRepository;
 import com.projectss.theUltimateTodo.memo.repository.MemoStoreRepository;
 import com.projectss.theUltimateTodo.memo.service.MemoService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class ChatBotService {
     private final UserRepository userRepository;
     private final MemoStoreRepository memoStoreRepository;
     private final DirectoryRepository directoryRepository;
+    private final MemoRepository memoRepository;
 
     public String register(String body) {
         try {
@@ -161,6 +163,7 @@ public class ChatBotService {
                         .findFirst();
 
                 Memo memo = new Memo(new MemoRequest(LocalDateTime.now() + " memo", utterance));
+                memoRepository.save(memo);
                 if (optionalMobileDirectory.isEmpty()) {
                     Directory mobileDirectory = new Directory(new DirectoryRequest("mobile-directory"));
                     directoryRepository.save(mobileDirectory);
