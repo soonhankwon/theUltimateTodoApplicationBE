@@ -5,12 +5,14 @@ import com.projectss.theUltimateTodo.OAuth.UserRepository;
 import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.domain.TodoStatus;
 import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
+import com.projectss.theUltimateTodo.todo.dto.ToDoResponse;
 import com.projectss.theUltimateTodo.todo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,19 +29,23 @@ public class TodoService {
         todoRepository.save(todo);
     }
 
-    public Todo getTodoByIdAndUser(String email, Long todoId) {
+    public ToDoResponse getTodoByIdAndUser(String email, Long todoId) {
         User user = userRepository.findUserByUserEmail(email)
                 .orElseThrow(() -> new IllegalStateException("no user by email"));
 
-        return todoRepository.findTodoByIdAndUser(todoId, user)
+        Todo toDo = todoRepository.findTodoByIdAndUser(todoId, user)
                 .orElseThrow(() -> new IllegalArgumentException("no todo by id"));
+        return ToDoResponse.ofResponse(toDo);
     }
 
-    public List<Todo> getTodosByUser(String email) {
+    public List<ToDoResponse> getTodosByUser(String email) {
         User user = userRepository.findUserByUserEmail(email)
                 .orElseThrow(() -> new IllegalStateException("no user by email"));
 
-        return todoRepository.findAllByUser(user);
+        return todoRepository.findAllByUser(user)
+                .stream()
+                .map(ToDoResponse::ofResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -65,10 +71,13 @@ public class TodoService {
         todoRepository.delete(todo);
     }
 
-    public List<Todo> getTodoInProgress(String email) {
+    public List<ToDoResponse> getTodoInProgress(String email) {
         User user = userRepository.findUserByUserEmail(email)
                 .orElseThrow(() -> new IllegalStateException("no user by email"));
 
-        return todoRepository.findAllByUserAndStatus(user, TodoStatus.NOT_DONE);
+        return todoRepository.findAllByUserAndStatus(user, TodoStatus.NOT_DONE)
+                .stream()
+                .map(ToDoResponse::ofResponse)
+                .collect(Collectors.toList());
     }
 }

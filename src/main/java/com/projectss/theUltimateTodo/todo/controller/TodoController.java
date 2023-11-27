@@ -1,8 +1,8 @@
 package com.projectss.theUltimateTodo.todo.controller;
 
 import com.projectss.theUltimateTodo.OAuth.SecurityUser;
-import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
+import com.projectss.theUltimateTodo.todo.dto.ToDoResponse;
 import com.projectss.theUltimateTodo.todo.service.TodoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -33,27 +33,27 @@ public class TodoController {
 
     @Operation(summary = "사용자 TO-DO 상세조회 API")
     @GetMapping("/{todoId}")
-    public ResponseEntity<Todo> getTodoById(@AuthenticationPrincipal SecurityUser securityUser,
-                                            @PathVariable Long todoId) {
+    public ResponseEntity<ToDoResponse> getTodoById(@AuthenticationPrincipal SecurityUser securityUser,
+                                                    @PathVariable Long todoId) {
         String email = securityUser.getUsername();
-        Todo todoById = todoService.getTodoByIdAndUser(email, todoId);
-        return ResponseEntity.ok().body(todoById);
+        ToDoResponse res = todoService.getTodoByIdAndUser(email, todoId);
+        return ResponseEntity.ok().body(res);
     }
 
     @Operation(summary = "사용자 TO-DO 목록조회 API")
     @GetMapping
-    public ResponseEntity<List<Todo>> getTodosByUser(@AuthenticationPrincipal SecurityUser securityUser) {
+    public ResponseEntity<List<ToDoResponse>> getTodosByUser(@AuthenticationPrincipal SecurityUser securityUser) {
         String email = securityUser.getUsername();
-        List<Todo> todosById = todoService.getTodosByUser(email);
-        return ResponseEntity.ok().body(todosById);
+        List<ToDoResponse> res = todoService.getTodosByUser(email);
+        return ResponseEntity.ok().body(res);
     }
 
     @Operation(summary = "사용자 진행중 TO-DO 목록조회 API")
     @GetMapping("/in-progress")
-    public ResponseEntity<List<Todo>> getTodoInProgressByUser(@AuthenticationPrincipal SecurityUser securityUser) {
+    public ResponseEntity<List<ToDoResponse>> getTodoInProgressByUser(@AuthenticationPrincipal SecurityUser securityUser) {
         String email = securityUser.getUsername();
-        List<Todo> todoInProgress = todoService.getTodoInProgress(email);
-        return ResponseEntity.ok().body(todoInProgress);
+        List<ToDoResponse> res = todoService.getTodoInProgress(email);
+        return ResponseEntity.ok().body(res);
     }
 
     @Operation(summary = "사용자 TO-DO 수정 API")
