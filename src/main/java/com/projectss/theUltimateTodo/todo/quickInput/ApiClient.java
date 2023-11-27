@@ -2,6 +2,7 @@ package com.projectss.theUltimateTodo.todo.quickInput;
 
 import com.projectss.theUltimateTodo.todo.quickInput.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -18,6 +19,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class ApiClient {
     private final CurrentDate currentDate;
 
@@ -48,7 +50,7 @@ public class ApiClient {
                 "  \"frequency_penalty\": 0,\n" +
                 "  \"presence_penalty\": 0\n" +
                 "}";
-
+        log.info("gpt request body : {}",requestBody);
         WebClient webClient = WebClient.builder().baseUrl(apiUrl).defaultHeaders(headers -> headers.addAll(header)).build();
 
         String responseBody = webClient.post()
