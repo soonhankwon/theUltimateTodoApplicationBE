@@ -1,99 +1,74 @@
 package com.projectss.theUltimateTodo.todo.domain;
 
-import com.projectss.theUltimateTodo.todo.dto.TodoDTO;
+import com.projectss.theUltimateTodo.OAuth.User;
+import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
 import com.projectss.theUltimateTodo.todo.quickInput.dto.ApiResponse;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 @Getter
 @NoArgsConstructor
-@Document(collection = "todos")
+@Entity
 public class Todo {
+
     @Id
-    private String id;
-    @NotBlank
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String content;
+    @Enumerated(EnumType.STRING)
     private TodoStatus status;
-    private LocalDate startDate;
-    @FutureOrPresent
-    private LocalDate endDate;
-    private LocalTime startTime;
-    @Future
-    private LocalTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public void add(TodoDTO todoDTO) {
-        if (ObjectUtils.isEmpty(todoDTO.startDate())) {
-            this.defaultStartDateTime();
-        }
-        else {
-            this.startDate = todoDTO.startDate();
-            this.startTime = todoDTO.startTime();
-        }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-        if (ObjectUtils.isEmpty(todoDTO.endDate())) {
-            this.defaultEndDateTime();
-        }
-        else {
-            this.endDate = todoDTO.endDate();
-            this.endTime = todoDTO.endTime();
-        }
-
-        this.content = todoDTO.content();
+    public Todo(ToDoRequest request, User user) {
+        this.startTime = request.start();
+        this.endTime = request.end();
+        this.content = request.content();
         this.status = TodoStatus.NOT_DONE;
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.user = user;
     }
 
-    public void quickAdd(ApiResponse response) {
+    public Todo(ApiResponse response, User user) {
         if (ObjectUtils.isEmpty(response.date())) {
             this.defaultStartDateTime();
+            this.defaultEndDateTime();
+        } else {
+            this.startTime = response.date().atStartOfDay();
+            this.endTime = response.date().atTime(23, 59);
         }
-        else {
-            this.startDate = response.date();
-            this.startTime = LocalTime.of(0, 0);
-            this.endDate = response.date();
-            this.endTime = LocalTime.of(23, 59);
-        }
-
         this.content = response.content();
         this.status = TodoStatus.NOT_DONE;
         this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.user = user;
     }
 
     public void defaultStartDateTime() {
-        this.startDate = LocalDate.now();
-        this.startTime = LocalTime.of(0, 0);
+        this.startTime = LocalDate.now().atStartOfDay();
     }
 
     public void defaultEndDateTime() {
-        this.endDate = LocalDate.now().plusDays(1);
-        this.endTime = LocalTime.of(0, 0);
-
+        this.endTime = LocalDate.now().plusDays(1).atTime(0, 0);
     }
 
-    public void update(TodoDTO todoDTO) {
-        updateTodo(todoDTO.content(), todoDTO.status(), todoDTO.startDate(), todoDTO.endDate(), todoDTO.startTime(), todoDTO.endTime());
-    }
-
-    public void updateTodo(String content, TodoStatus status, LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime) {
-        this.content = content;
-        this.status = status;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public void update(ToDoRequest toDoRequest) {
+        this.content = toDoRequest.content();
+        this.status = toDoRequest.status();
+        this.startTime = toDoRequest.start();
+        this.endTime = toDoRequest.end();
         this.updatedAt = LocalDateTime.now();
-
     }
 }

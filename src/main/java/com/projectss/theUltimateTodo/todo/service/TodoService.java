@@ -1,69 +1,74 @@
 package com.projectss.theUltimateTodo.todo.service;
 
+import com.projectss.theUltimateTodo.OAuth.User;
+import com.projectss.theUltimateTodo.OAuth.UserRepository;
 import com.projectss.theUltimateTodo.todo.domain.Todo;
-import com.projectss.theUltimateTodo.todo.domain.TodoStore;
-import com.projectss.theUltimateTodo.todo.dto.TodoDTO;
+import com.projectss.theUltimateTodo.todo.domain.TodoStatus;
+import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
 import com.projectss.theUltimateTodo.todo.repository.TodoRepository;
-import com.projectss.theUltimateTodo.todo.repository.TodoStoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
-    private final TodoStoreRepository todoStoreRepository;
-    private final TodoStoreService todoStoreService;
+    private final UserRepository userRepository;
 
-    public void add(String email, TodoDTO todoDTO) {
-        TodoStore todoStore = todoStoreRepository.findTodoStoreByEmail(email)
-                .orElseThrow();
+    @Transactional
+    public void createToDo(String email, ToDoRequest request) {
+        User user = userRepository.findUserByUserEmail(email)
+                .orElseThrow(() -> new IllegalStateException("no user by email"));
 
-        Todo todo = new Todo();
-        todo.add(todoDTO);
-        todoRepository.save(todo);
-        todoStore.saveTodo(todo);
-        todoStoreRepository.save(todoStore);
-    }
-
-    public Todo getTodoById(String email, String todoId) {
-        TodoStore todoStore = todoStoreService.getTodoStoreByUser(email);
-
-        return todoStore.getTodoById(todoId);
-    }
-
-    public List<Todo> getTodosById(String email) {
-        TodoStore todoStore = todoStoreService.getTodoStoreByUser(email);
-
-        Optional<List<Todo>> optionalTodos = todoStore.getAllTodos();
-        List<Todo> todos;
-
-        if (optionalTodos.isPresent()) {
-            todos = optionalTodos.get();
-        } else {
-            throw new IllegalStateException("Todos not found");
-        }
-
-        return todos;
-    }
-
-    public void updateTodo(String email, String todoId, TodoDTO todoDTO) {
-        if (!todoStoreRepository.existsByEmail(email)) {
-            throw new IllegalStateException("no todo store by user id");
-        }
-        Todo todo = todoRepository.findById(todoId)
-                .orElseThrow(() -> new IllegalStateException("no todo by todo id"));
-        todo.update(todoDTO);
+        Todo todo = new Todo(request, user);
         todoRepository.save(todo);
     }
 
-    public void delete(String email, String todoId) {
-        if (!todoStoreRepository.existsByEmail(email)) {
-            throw new IllegalStateException("no todo store by user id");
-        }
-        todoRepository.deleteById(todoId);
+    public Todo getTodoByIdAndUser(String email, Long todoId) {
+        User user = userRepository.findUserByUserEmail(email)
+                .orElseThrow(() -> new IllegalStateException("no user by email"));
+
+        return todoRepository.findTodoByIdAndUser(todoId, user)
+                .orElseThrow(() -> new IllegalArgumentException("no todo by id"));
+    }
+
+    public List<Todo> getTodosByUser(String email) {
+        User user = userRepository.findUserByUserEmail(email)
+                .orElseThrow(() -> new IllegalStateException("no user by email"));
+
+        return todoRepository.findAllByUser(user);
+    }
+
+    @Transactional
+    public void updateTodoByUser(String email, Long todoId, ToDoRequest toDoRequest) {
+        User user = userRepository.findUserByUserEmail(email)
+                .orElseThrow(() -> new IllegalStateException("no user by email"));
+
+        Todo todo = todoRepository.findTodoByIdAndUser(todoId, user)
+                .orElseThrow(() -> new IllegalStateException("no todo by user"));
+
+        todo.update(toDoRequest);
+        todoRepository.save(todo);
+    }
+
+    @Transactional
+    public void deleteByUser(String email, Long todoId) {
+        User user = userRepository.findUserByUserEmail(email)
+                .orElseThrow(() -> new IllegalStateException("no user by email"));
+
+        Todo todo = todoRepository.findTodoByIdAndUser(todoId, user)
+                .orElseThrow(() -> new IllegalStateException("no todo by user"));
+
+        todoRepository.delete(todo);
+    }
+
+    public List<Todo> getTodoInProgress(String email) {
+        User user = userRepository.findUserByUserEmail(email)
+                .orElseThrow(() -> new IllegalStateException("no user by email"));
+
+        return todoRepository.findAllByUserAndStatus(user, TodoStatus.NOT_DONE);
     }
 }

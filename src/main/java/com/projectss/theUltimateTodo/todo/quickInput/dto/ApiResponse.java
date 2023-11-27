@@ -1,5 +1,7 @@
 package com.projectss.theUltimateTodo.todo.quickInput.dto;
 
+import com.projectss.theUltimateTodo.OAuth.User;
+import com.projectss.theUltimateTodo.todo.domain.Todo;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
@@ -10,4 +12,7 @@ public record ApiResponse(
         @NotNull
         String content
 ) {
+    public static Todo ofTodo(ApiResponse response, User user) {
+        return new Todo(response, user);
+    }
 }

@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public enum TodoStatus {
     NOT_DONE,
-    DONE;
+    DONE
 }

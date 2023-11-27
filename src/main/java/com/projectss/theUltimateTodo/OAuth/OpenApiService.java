@@ -3,9 +3,6 @@ package com.projectss.theUltimateTodo.OAuth;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectss.theUltimateTodo.memo.service.MemoStoreService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
-import com.projectss.theUltimateTodo.todo.service.TodoStoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +24,6 @@ public class OpenApiService {
     private final TokenService tokenService;
     private final UserRepository userRepository;
     private final MemoStoreService memoStoreService;
-    private final TodoStoreService todoStoreService;
 
     @Value("${kakao.rest-key}")
     private String kakaoKey;
@@ -35,36 +31,36 @@ public class OpenApiService {
     private String clientSecret;
 
 
-
-    public String getToken(String code){
+    public String getToken(String code) {
 
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        MultiValueMap<String,String> body = new LinkedMultiValueMap<>();
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 
-        body.add("grant_type","authorization_code");
+        body.add("grant_type", "authorization_code");
         body.add("client_id", kakaoKey);
-        body.add("redirect_uri","https://memo-fe-woad.vercel.app/openApi/kakao");
-        body.add("code",code);
-        body.add("client_secret",clientSecret);
+        body.add("redirect_uri", "https://memo-fe-woad.vercel.app/openApi/kakao");
+        body.add("code", code);
+        body.add("client_secret", clientSecret);
 
 
         LoginResponseDto loginResponseDto = restTemplate.postForObject(
                 "https://kauth.kakao.com/oauth/token",
-                new HttpEntity<>(body,headers),
+                new HttpEntity<>(body, headers),
                 LoginResponseDto.class);
         log.info(loginResponseDto.toString());
 
-        String token = getUserInfo(loginResponseDto.access_token(),restTemplate);
+        String token = getUserInfo(loginResponseDto.access_token(), restTemplate);
         return token;
     }
-    public String getUserInfo(String token,RestTemplate restTemplate) {
+
+    public String getUserInfo(String token, RestTemplate restTemplate) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded; charset=utf-8");
-        headers.add("Authorization", "Bearer "+token);
+        headers.add("Authorization", "Bearer " + token);
 
         ResponseEntity<String> response =
                 restTemplate.exchange("https://kapi.kakao.com/v2/user/me",
@@ -76,7 +72,7 @@ public class OpenApiService {
         log.info(body.toString());
         String myToken = "";
 
-        try{
+        try {
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(body);
             String id = jsonNode.get("id").asText();
@@ -85,9 +81,9 @@ public class OpenApiService {
             String thumbnailImage = jsonNode.get("properties").get("thumbnail_image").asText();
             String email = jsonNode.get("kakao_account").get("email").asText();
 
-            saveUser(id,nickname,profileImage,thumbnailImage,email);
-            myToken = tokenService.generateToken(id,nickname,profileImage,thumbnailImage,email);
-        }catch (Exception e){
+            saveUser(id, nickname, profileImage, thumbnailImage, email);
+            myToken = tokenService.generateToken(id, nickname, profileImage, thumbnailImage, email);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -96,7 +92,7 @@ public class OpenApiService {
 
     }
 
-    public void saveUser(String id, String nickname, String profileImage, String thumbnailImage,String email){
+    public void saveUser(String id, String nickname, String profileImage, String thumbnailImage, String email) {
         User newUser = User.builder()
                 .id(id)
                 .nickname(nickname)
@@ -111,8 +107,5 @@ public class OpenApiService {
         userRepository.save(newUser);
         //유저 DB 저장시 유저의 메모스토어 생성
         memoStoreService.createMemoStoreByUser(email);
-        todoStoreService.createTodoStoreByUser(email);
     }
-//
-//
 }
