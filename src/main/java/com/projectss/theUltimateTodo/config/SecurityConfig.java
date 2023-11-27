@@ -50,7 +50,7 @@ public class SecurityConfig {
                         .configurationSource(request -> {
                             CorsConfiguration config = new CorsConfiguration();
                             config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://k28951c68ade3a.user-app.krampoline.com", "https://memo-fe-woad.vercel.app"));
-                            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+                            config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE","PATCH"));
                             config.setAllowedHeaders(Arrays.asList("*"));
                             return config;
                         }))
