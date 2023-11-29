@@ -1,11 +1,14 @@
 package com.projectss.theUltimateTodo.todo.quickInput;
 
-import com.projectss.theUltimateTodo.OAuth.SecurityUser;
+import com.projectss.theUltimateTodo.security.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
@@ -18,9 +21,7 @@ public class ApiController {
     public ResponseEntity<String> getApiMethod(@AuthenticationPrincipal SecurityUser securityUser,
                                                @RequestBody String input) {
         String email = securityUser.getUsername();
-
-        apiService.getApiMethod(email, input);
-
+        apiService.createQuickMemo(email, input);
         return ResponseEntity.ok().body("created");
     }
 }

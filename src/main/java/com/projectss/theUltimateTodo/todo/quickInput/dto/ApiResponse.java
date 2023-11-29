@@ -1,6 +1,6 @@
 package com.projectss.theUltimateTodo.todo.quickInput.dto;
 
-import com.projectss.theUltimateTodo.OAuth.User;
+import com.projectss.theUltimateTodo.user.domain.User;
 import com.projectss.theUltimateTodo.todo.domain.Todo;
 import jakarta.validation.constraints.NotNull;
 

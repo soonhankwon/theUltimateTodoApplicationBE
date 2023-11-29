@@ -1,6 +1,6 @@
 package com.projectss.theUltimateTodo.memo.controller;
 
-import com.projectss.theUltimateTodo.OAuth.SecurityUser;
+import com.projectss.theUltimateTodo.security.SecurityUser;
 import com.projectss.theUltimateTodo.memo.dto.MemoContentUpdateRequest;
 import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
 import com.projectss.theUltimateTodo.memo.dto.MemoTitleUpdateRequest;

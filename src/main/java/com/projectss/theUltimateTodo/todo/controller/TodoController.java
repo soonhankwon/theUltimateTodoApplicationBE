@@ -1,6 +1,6 @@
 package com.projectss.theUltimateTodo.todo.controller;
 
-import com.projectss.theUltimateTodo.OAuth.SecurityUser;
+import com.projectss.theUltimateTodo.security.SecurityUser;
 import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
 import com.projectss.theUltimateTodo.todo.dto.ToDoResponse;
 import com.projectss.theUltimateTodo.todo.service.TodoService;

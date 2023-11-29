@@ -1,9 +1,9 @@
 package com.projectss.theUltimateTodo.todo.service;
 
-import com.projectss.theUltimateTodo.OAuth.User;
-import com.projectss.theUltimateTodo.OAuth.UserRepository;
-import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.domain.TodoStatus;
+import com.projectss.theUltimateTodo.user.domain.User;
+import com.projectss.theUltimateTodo.user.repository.UserRepository;
+import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
 import com.projectss.theUltimateTodo.todo.dto.ToDoResponse;
 import com.projectss.theUltimateTodo.todo.repository.TodoRepository;

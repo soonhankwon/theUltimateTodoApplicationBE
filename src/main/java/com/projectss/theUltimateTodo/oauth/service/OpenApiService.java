@@ -1,8 +1,12 @@
-package com.projectss.theUltimateTodo.OAuth;
+package com.projectss.theUltimateTodo.oauth.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.projectss.theUltimateTodo.memo.service.MemoStoreService;
+import com.projectss.theUltimateTodo.user.domain.User;
+import com.projectss.theUltimateTodo.user.repository.UserRepository;
+import com.projectss.theUltimateTodo.oauth.dto.LoginResponseDto;
+import com.projectss.theUltimateTodo.security.jwt.TokenService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

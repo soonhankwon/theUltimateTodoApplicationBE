@@ -1,5 +1,6 @@
-package com.projectss.theUltimateTodo.OAuth;
+package com.projectss.theUltimateTodo.security.filter;
 
+import com.projectss.theUltimateTodo.security.jwt.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +30,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String jwt = tokenService.resolveToken(request);
 
-        if(StringUtils.hasText(jwt) && tokenService.isTokenValid(jwt)) {
+        if (StringUtils.hasText(jwt) && tokenService.isTokenValid(jwt)) {
             setAuthentication(tokenService.getUserIdFromToken(jwt));
         }
         filterChain.doFilter(request, response);

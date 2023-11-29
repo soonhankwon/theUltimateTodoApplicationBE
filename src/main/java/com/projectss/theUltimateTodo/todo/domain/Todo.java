@@ -1,6 +1,6 @@
 package com.projectss.theUltimateTodo.todo.domain;
 
-import com.projectss.theUltimateTodo.OAuth.User;
+import com.projectss.theUltimateTodo.user.domain.User;
 import com.projectss.theUltimateTodo.todo.dto.ToDoRequest;
 import com.projectss.theUltimateTodo.todo.quickInput.dto.ApiResponse;
 import jakarta.persistence.*;

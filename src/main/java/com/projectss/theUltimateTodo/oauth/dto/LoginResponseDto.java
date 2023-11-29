@@ -1,4 +1,4 @@
-package com.projectss.theUltimateTodo.OAuth;
+package com.projectss.theUltimateTodo.oauth.dto;
 
 public record LoginResponseDto (
 

@@ -1,10 +1,9 @@
 package com.projectss.theUltimateTodo.todo.repository;
 
-import com.projectss.theUltimateTodo.OAuth.User;
-import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.domain.TodoStatus;
+import com.projectss.theUltimateTodo.user.domain.User;
+import com.projectss.theUltimateTodo.todo.domain.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

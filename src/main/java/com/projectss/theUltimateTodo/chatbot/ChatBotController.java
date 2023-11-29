@@ -2,36 +2,35 @@ package com.projectss.theUltimateTodo.chatbot;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
-@Slf4j
 public class ChatBotController {
     private final ChatBotService chatBotService;
 
     @PostMapping("/chatbot/register")
     public String chatbot(@RequestBody String body) {
 
-        log.info("chatbot register body :  {}",body);
-
+        log.info("chatbot register body :  {}", body);
         return chatBotService.register(body);
     }
+
     @PostMapping("/chatbot/fallback")
     public String chatbotPost(@RequestBody String body) {
 
-        log.info("chatbot fallback body: {} ",body);
+        log.info("chatbot fallback body: {} ", body);
         return chatBotService.fallback(body);
-
-
-
-
     }
+
     @PostMapping("/chatbot/test")
     public String chatbotTest(@RequestBody String body) {
 
-        log.info("test body : {}",body);
+        log.info("test body : {}", body);
         return "{\n" +
                 "  \"version\": \"2.0\",\n" +
                 "  \"template\": {\n" +
@@ -55,10 +54,11 @@ public class ChatBotController {
 
 
     }
+
     @PostMapping("/chatbot/test2")
     public String chatbotTest2(@RequestBody String body) {
 
-        log.info("test body : {}",body);
+        log.info("test body : {}", body);
         return "{\n" +
                 "  \"version\": \"2.0\",\n" +
                 "  \"template\": {\n" +

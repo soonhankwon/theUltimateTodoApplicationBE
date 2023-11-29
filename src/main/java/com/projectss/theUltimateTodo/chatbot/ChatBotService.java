@@ -2,8 +2,8 @@ package com.projectss.theUltimateTodo.chatbot;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.projectss.theUltimateTodo.OAuth.User;
-import com.projectss.theUltimateTodo.OAuth.UserRepository;
+import com.projectss.theUltimateTodo.user.domain.User;
+import com.projectss.theUltimateTodo.user.repository.UserRepository;
 import com.projectss.theUltimateTodo.memo.domain.Directory;
 import com.projectss.theUltimateTodo.memo.domain.Memo;
 import com.projectss.theUltimateTodo.memo.domain.MemoStore;
@@ -12,7 +12,6 @@ import com.projectss.theUltimateTodo.memo.dto.MemoRequest;
 import com.projectss.theUltimateTodo.memo.repository.DirectoryRepository;
 import com.projectss.theUltimateTodo.memo.repository.MemoRepository;
 import com.projectss.theUltimateTodo.memo.repository.MemoStoreRepository;
-import com.projectss.theUltimateTodo.memo.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -82,7 +81,8 @@ public class ChatBotService {
                             "    }\n" +
                             "}";
                 }
-                User user = userRepository.findById(appUserId).orElseThrow(() -> new RuntimeException("처리 중 오류가 발생하였습니다."));
+                User user = userRepository.findById(appUserId)
+                        .orElseThrow(() -> new RuntimeException("처리 중 오류가 발생하였습니다."));
                 user.setOpenId(openId);
                 userRepository.save(user);
             }

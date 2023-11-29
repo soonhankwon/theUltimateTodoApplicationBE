@@ -26,7 +26,7 @@ public class ApiClient {
     @Value("${OPENAI_API_KEY}")
     private String apiKey;
 
-    public ApiResponse getApiMethod(String input) {
+    public ApiResponse getQuickInputByGpt(String input) {
         String apiUrl = "https://api.openai.com/v1/chat/completions";
         HttpHeaders header = new HttpHeaders();
         header.setContentType(MediaType.APPLICATION_JSON);

@@ -1,7 +1,7 @@
 package com.projectss.theUltimateTodo.todo.quickInput;
 
-import com.projectss.theUltimateTodo.OAuth.User;
-import com.projectss.theUltimateTodo.OAuth.UserRepository;
+import com.projectss.theUltimateTodo.user.domain.User;
+import com.projectss.theUltimateTodo.user.repository.UserRepository;
 import com.projectss.theUltimateTodo.todo.domain.Todo;
 import com.projectss.theUltimateTodo.todo.quickInput.dto.ApiResponse;
 import com.projectss.theUltimateTodo.todo.repository.TodoRepository;
@@ -17,11 +17,11 @@ public class ApiService {
     private final ApiClient apiClient;
 
     @Transactional
-    public void getApiMethod(String email, String input) {
+    public void createQuickMemo(String email, String input) {
         User user = userRepository.findUserByUserEmail(email)
                 .orElseThrow(() -> new IllegalStateException("no user by email"));
 
-        ApiResponse response = apiClient.getApiMethod(input);
+        ApiResponse response = apiClient.getQuickInputByGpt(input);
         Todo todo = ApiResponse.ofTodo(response, user);
         todoRepository.save(todo);
     }

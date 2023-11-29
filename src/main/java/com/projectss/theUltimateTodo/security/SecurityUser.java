@@ -1,5 +1,6 @@
-package com.projectss.theUltimateTodo.OAuth;
+package com.projectss.theUltimateTodo.security;
 
+import com.projectss.theUltimateTodo.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

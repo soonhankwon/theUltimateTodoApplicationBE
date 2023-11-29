@@ -1,4 +1,6 @@
 package com.projectss.theUltimateTodo.memo.dto;
 
-public record MemoTitleUpdateRequest(String title) {
+public record MemoTitleUpdateRequest(
+        String title
+) {
 }
