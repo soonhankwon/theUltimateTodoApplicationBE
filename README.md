@@ -68,5 +68,5 @@
 ![ultimate drawio](https://github.com/soonhankwon/tech-mentor-backend/assets/113872320/5dca77e6-d145-48a6-87c1-61ca0f87032d)
 
 ## api 명세서
-- Swagger : http://3.34.111.174:8080/swagger-ui/index.html#/
+- Swagger : https://easylog.shop/swagger-ui/index.html#/
 <br/>
