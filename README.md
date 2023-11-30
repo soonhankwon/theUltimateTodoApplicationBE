@@ -1,5 +1,6 @@
 # EasyLog - 가볍고 쉬운 메모 & 일정관리 웹 서비스 백엔드 API
 - 조금 더 간편하게 쓸 수 있고, 가볍고 쉬운 기록 & 일정관리용 애플리케이션
+- Service Link: https://memo-fe-woad.vercel.app/
 <br/>
 
 ## Table Of Contents
