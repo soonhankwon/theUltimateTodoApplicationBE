@@ -81,6 +81,14 @@
 <br/>
 
 ## erd
+- RDB ERD
+
+![rdb-erd](https://github.com/soonhankwon/gold-digger-api/assets/113872320/d7daf492-51f1-4284-8b80-359eadc1d03b)
+
+- NoSQL ERD
+
+![memo-nosql-erd drawio](https://github.com/soonhankwon/gold-digger-api/assets/113872320/f2aede5c-e9f3-4969-beee-aa6e6a496e3f)
+<br/>
 
 ## 핵심문제 해결과정 및 전략
 
