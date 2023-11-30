@@ -11,6 +11,7 @@
 - [API 명세서](#api-명세서)
 - [ERD](#erd)
 - [핵심문제 해결과정 및 전략](#핵심문제-해결과정-및-전략)
+- [TEAM PROJECT6S](#TEAM-PROJECT6S)
 <br/>
 
 ## 아이디어
@@ -70,3 +71,9 @@
 ## api 명세서
 - Swagger : https://easylog.shop/swagger-ui/index.html#/
 <br/>
+
+## erd
+
+## 핵심문제 해결과정 및 전략
+
+## TEAM PROJECT6S
