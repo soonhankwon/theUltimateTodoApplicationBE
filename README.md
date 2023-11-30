@@ -89,6 +89,91 @@
 <br/>
 
 ## 핵심문제 해결과정 및 전략
+### 디렉토리 - 메모 트리 구조를 어떻게 구현해야 효율적일까?
+---
+- 기능 요구사항을 만족시키기 위해 디렉토리 안에 디렉토리 리스트와 메모 리스트가 들어있는 구조를 구현해야 했습니다.
+  - 프론트에서는 유저에게 디렉토리 구조를 보여줘야 함 (ex Window 탐색기)
+- 메모 서비스의 특성상 쓰기, 수정 비율이 높을 것으로 예상되었습니다.
+- RDB를 사용한다면?
+  - 다음과 같은 Entity Class를 만들어 주는 것을 생각할 수 있습니다.
+    <details>
+    <summary><strong> RDB Entity Class - Click! </strong></summary>
+    <div markdown="1">       
+    
+    ````java
+    @NoArgsConstructor
+    @Entity
+    public class MemoRdb {
+    
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+    
+        private String title;
+    
+        private String content;
+    
+        @ManyToOne
+        @JoinColumn(name = "directory_id")
+        private DirectoryRdb directory;
+    
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+    }
+    
+    @NoArgsConstructor
+    @Entity
+    public class DirectoryRdb {
+    
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Long id;
+    
+        private String name;
+    
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+    
+        @ManyToOne
+        @JoinColumn(name = "parent_directory_id")
+        private DirectoryRdb parentDirectory;
+    
+        @ManyToOne
+        @JoinColumn(name = "child_directory_id")
+        private DirectoryRdb childDirectory;
+    
+        @ManyToOne
+        @JoinColumn(name = "memo_id")
+        private MemoRdb memo;
+    }
+    ````
+  </div>
+  </details>
+
+  - 디렉토리 계층 구조를 구현하기위해 parent, child directory FK가 필요합니다.
+  - 메모, 디렉토리 둘 다 **유저 FK**가 필요합니다.
+  - 백엔드 로직에서 필연적으로 많은 **Join**이 발생할 것을 예상할 수 있습니다.
+- 가장 큰 문제점 → 복잡도
+  - 프론트에서 유저에게 한번에 디렉토리 구조를 보여줘야 하는데 그렇다면 디렉토리에 Depth라는 프로퍼티가 필요해집니다.
+  - 디렉토리를 펼칠때마다 DB call 발생 문제 등이 발생합니다.
+  - 정교하게 요소를 추가해서 구현할 수는 있겠지만, 부자연스럽게 복잡도가 올라간다는 느낌을 받았습니다.
+- 디렉토리 구조엔 구조적으로 NoSQL이 맞는것이 아닐까?
+  - 일반적인 Json 응답을 보면 계층구조의 응답 형식을 많이 접할 수 있습니다.
+- 그렇다면 Json 구조를 나타내기 위한 적합한 데이터베이스는?
+  - 바로 NoSQL이었습니다.
+- NoSQL에서 이전에 사용해본 경험이 있고 일정 용량 Cloud를 무료로 사용할 수 있는 MongoDB를 선택했습니다.
+  - Spring Data MongoDB를 사용하면 기존 Spring Data JPA와 유사한 방식으로 사용할 수 있어 생산성이 높아질 것이라는 생각도 한 가지 이유였습니다.
+    
+### MongoDB에서 도큐먼트간의 연관관계를 어떻게 구현해야할까?
+---
+
+### MongoDB(NoSQL)에서 인덱스는 어떤식으로 만들며 적용해야할까?
+---
+
+### MongoDB를 사용한 TO-DO 도메인 MySQL로 마이그레이션 이슈
+---
 
 ## TEAM PROJECT6S
 ### BACKEND
