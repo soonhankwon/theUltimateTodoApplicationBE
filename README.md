@@ -275,9 +275,6 @@ spring.data.mongodb.auto-index-creation=true
 - 인덱스 미적용시 평균 76ms → 적용시 평균 65ms
 - 개선율은 평균적으로 `13.16%`을 보였습니다.
 
-## MongoDB를 사용한 TO-DO 도메인 MySQL로 마이그레이션 이슈
----
-
 ## TEAM PROJECT6S
 ### BACKEND
 - 권순한, 강신규, 유지완, 김재민
