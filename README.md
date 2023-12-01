@@ -200,11 +200,9 @@
 - Spring Data MongoDB에서 1:N 관계를 설정하기 위해서 **List** 에 **@DBRef**를 적용시켜서 관계를 설정해주었습니다.
     <details>
     <summary><strong> @DBRef 1:N 관계 설정 CODE - Click! </strong></summary>
-    <div markdown="1">       
+    <div markdown="1">
     
-    ````java
-    
-        ```java
+  ```java
         @Document(collection = "memo-stores")
         public class MemoStore {
         
@@ -220,8 +218,7 @@
             @DBRef
             private List<Memo> memos = new ArrayList<>();
         }
-        ```
-    ````
+  ```
   </div>
   </details>
         
@@ -231,6 +228,52 @@
 
 ### MongoDB(NoSQL)에서 인덱스는 어떤식으로 만들며 적용해야할까?
 ---
+## Story.
+---
+- 메모 서비스를 사용하는데 가장 중요한 객체는 **MemoStore** 였습니다.
+    - MemoStore: 유저의 메모 저장소이며 모든 API가 해당 객체를 기반으로 작동 (**Master Table**이라고 생각할 수 있다.)
+- API에서 반복적이고 빈번하게 사용되는 쿼리가 무엇인가 분석했습니다.
+- 그것은 바로 **유저의 이메일로 메모 저장소를 조회**하는 쿼리입니다.
+    - *`Optional*<*MemoStore*> findMemoStoreByEmail(*String email*);`
+- 그렇다면 email을 인덱스로 만들어주면 좋겠는데, **MongoDB에서는 어떻게 하지?**
+    - **@Indexed** 애노테이션을 사용해 인덱스를 만들어줄 수 있었습니다.
+
+## Action.
+---
+- 간단하게 인덱스를 생성할 수 있겠다고 기대했었다, 하지만
+  <details>
+    <summary><strong> @Indexed 적용 CODE - Click! </strong></summary>
+    <div markdown="1">       
+    
+    ```java
+      @Document(collection = "memo-stores")
+      public class MemoStore {
+      
+          @Id
+          private String id;
+      
+          @Indexed(unique = true)
+          private String email;
+      		.....
+      }
+    ```
+  </div>
+  </details
+
+- 문제발생: MongoDB에 들어가서 확인한 결과 인덱스가 생성되지 않았습니다.
+- 이유: 레퍼런스를 조사한 결과 Spring Data MongoDB 3.0 부터 **자동 인덱스 생성이 디폴트로 꺼져있다.**
+    - auto-index-creation=false
+- 해결: application.properties 에서 MongoDB 설정을 바꿔주었습니다.
+```groovy
+spring.data.mongodb.auto-index-creation=true
+```
+
+## Result.
+---
+- 성공적으로 email 인덱스를 생성했습니다.
+![memostore-index](https://github.com/soonhankwon/gold-digger-api/assets/113872320/7280dc99-8e73-45fc-9870-2e788ee0e9b7)
+- 인덱스 미적용시 평균 76ms → 적용시 평균 65ms
+- 개선율은 평균적으로 `13.16%`을 보였습니다.
 
 ### MongoDB를 사용한 TO-DO 도메인 MySQL로 마이그레이션 이슈
 ---
