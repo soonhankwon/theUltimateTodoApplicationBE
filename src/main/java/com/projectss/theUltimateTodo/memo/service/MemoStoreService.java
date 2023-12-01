@@ -28,7 +28,7 @@ public class MemoStoreService {
 
     public MemoStore getMemoStoreByUser(String email) {
         return memoStoreRepository.findMemoStoreByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("no memo store by user id"));
+                .orElseThrow(() -> new IllegalStateException("no memo store by user email"));
 
     }
 
