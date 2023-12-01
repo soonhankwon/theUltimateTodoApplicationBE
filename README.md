@@ -92,6 +92,7 @@
 ### 디렉토리 - 메모 트리 구조를 어떻게 구현해야 효율적일까?
 ---
 ### Story.
+---
 - 기능 요구사항을 만족시키기 위해 디렉토리 안에 디렉토리 리스트와 메모 리스트가 들어있는 구조를 구현해야 했습니다.
   - 프론트에서는 유저에게 디렉토리 구조를 보여줘야 함 (ex Window 탐색기)
 - 메모 서비스의 특성상 쓰기, 수정 비율이 높을 것으로 예상되었습니다.
@@ -168,6 +169,7 @@
   - Spring Data MongoDB를 사용하면 기존 Spring Data JPA와 유사한 방식으로 사용할 수 있어 생산성이 높아질 것이라는 생각도 한 가지 이유였습니다.
 
 ### Action.
+---
 - 도메인 클래스에 @Document를 활용해서 **컬렉션 도큐먼트**를 만들어주었습니다.
     - MemoStore: 사용자별로 딱 하나 가지고 있는 **루트 디렉토리 도큐먼트**
     - Directory: 디렉토리와 메모 도큐먼트 **컬렉션**을 가지고 있는 도큐먼트
@@ -175,6 +177,7 @@
 - MongoDB 컬렉션의 객체는 **ObjectId(RDB의 PK와 같은 개념)** 를 가져야하기 때문에 *`org.springframework.data.annotation.Id`* 의 **@ID**를 사용했습니다.
 
 ### Result.
+---
 - 복잡하지 않고 자연스럽게 구현된 디렉토리 - 메모 트리 구조
 ![memostore-response](https://github.com/soonhankwon/gold-digger-api/assets/113872320/14389fc5-eafe-4b62-b4bf-9e255ae298a6) 
 - 모든 API를 ObjectId를 파라미터로 사용하게 함으로써 조회시 불필요한 탐색 방지
