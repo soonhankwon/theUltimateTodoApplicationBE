@@ -10,14 +10,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
 import java.util.List;
-
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,16 +37,23 @@ public class SecurityConfig {
                 .cors(cors -> cors
                         .configurationSource(request -> {
                             CorsConfiguration config = new CorsConfiguration();
-                            config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://k28951c68ade3a.user-app.krampoline.com", "https://memo-fe-woad.vercel.app"));
+                            config.setAllowedOrigins(Arrays.asList("http://localhost:5173", "https://memo-fe-woad.vercel.app"));
                             config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "PATCH"));
                             config.setAllowedHeaders(List.of("*"));
                             return config;
                         }))
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> {
-                            authorize.requestMatchers("/openApi/**", "/", "/swagger-ui/**", "/v3/api-docs/**", "/chatbot/**").permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/openApi/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll();
+                            authorize.requestMatchers(new AntPathRequestMatcher("/chatbot/**")).permitAll();
                             authorize.anyRequest().authenticated();
                         }
+                )
+                .headers(header -> header
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
                 )
                 .addFilterBefore(new JwtAuthFilter(tokenService, jpaUserDetailsService), UsernamePasswordAuthenticationFilter.class);
 
