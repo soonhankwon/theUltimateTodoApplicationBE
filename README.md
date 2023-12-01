@@ -5,7 +5,7 @@
 <details>
 <summary><strong> 고용노동부 풀스택 개발자 양성과정 우수 프로젝트(1위) 수상 - Click! </strong></summary>
 <div markdown="1">
-  <img src="https://github.com/soonhankwon/gold-digger-api/assets/113872320/99d28f0c-0261-434c-9590-aefea93dae7e" align="center" height=250px />
+  <img src="https://github.com/soonhankwon/gold-digger-api/assets/113872320/d8290e6e-9f6a-415b-a4e2-535bc5a15964" align="center" />
 </div>
 </details>
 <br/>
