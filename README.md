@@ -186,6 +186,48 @@
 
 ### MongoDB에서 도큐먼트간의 연관관계를 어떻게 구현해야할까?
 ---
+## Story.
+---
+- Spring Data JPA에서는 @OneToOne, @OneToMany, @ManyToOne 등의 애노테이션을 통해 연관관계를 설정할 수 있었습니다.
+- 하지만 Spring Data MongoDB는 처음 사용해보는 상황이었고 Directory에 연관된 Directory와 Memo를 모두 조회할 수 있어야 했습니다.
+- 레퍼런스 검색 결과 MongoDB의 연관관계 설정 방법은?
+    - **@DBRef** 애노테이션을 사용하는 것 입니다.
+
+## Action.
+---
+- 요구사항을 구현하기 위해서는 1:N 관계를 만들어줘야 했습니다.
+    - 디렉토리는 여러 디렉토리와 여러 메모를 가지고 있다.
+- Spring Data MongoDB에서 1:N 관계를 설정하기 위해서 **List** 에 **@DBRef**를 적용시켜서 관계를 설정해주었습니다.
+    <details>
+    <summary><strong> @DBRef 1:N 관계 설정 CODE - Click! </strong></summary>
+    <div markdown="1">       
+    
+    ````java
+    
+        ```java
+        @Document(collection = "memo-stores")
+        public class MemoStore {
+        
+            @Id
+            private String id;
+        
+            @Indexed
+            private String email;
+        
+            @DBRef
+            private List<Directory> directories = new ArrayList<>();
+        
+            @DBRef
+            private List<Memo> memos = new ArrayList<>();
+        }
+        ```
+    ````
+  </div>
+  </details>
+        
+## Result.
+---
+- **@DBRef**를 활용한 **연관관계 설정**으로 디렉토리와 메모를 **조회, 생성, 드래그 앤 드랍** 시 이상없이 **연관된 객체들을 조회, 생성, 삭제** 할 수 있었습니다.
 
 ### MongoDB(NoSQL)에서 인덱스는 어떤식으로 만들며 적용해야할까?
 ---
