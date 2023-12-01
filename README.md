@@ -234,7 +234,7 @@
     - MemoStore: 유저의 메모 저장소이며 모든 API가 해당 객체를 기반으로 작동 (**Master Table**이라고 생각할 수 있다.)
 - API에서 반복적이고 빈번하게 사용되는 쿼리가 무엇인가 분석했습니다.
 - 그것은 바로 **유저의 이메일로 메모 저장소를 조회**하는 쿼리입니다.
-    - *`Optional*<*MemoStore*> findMemoStoreByEmail(*String email*);`
+    - `Optional<MemoStore> findMemoStoreByEmail(String email);`
 - 그렇다면 email을 인덱스로 만들어주면 좋겠는데, **MongoDB에서는 어떻게 하지?**
     - **@Indexed** 애노테이션을 사용해 인덱스를 만들어줄 수 있었습니다.
 
