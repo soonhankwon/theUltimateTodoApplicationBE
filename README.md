@@ -162,20 +162,24 @@
   - 정교하게 요소를 추가해서 구현할 수는 있겠지만, 부자연스럽게 복잡도가 올라간다는 느낌을 받았습니다.
 - 디렉토리 구조엔 구조적으로 NoSQL이 맞는것이 아닐까?
   - 일반적인 Json 응답을 보면 계층구조의 응답 형식을 많이 접할 수 있습니다.
-- 그렇다면 Json 구조를 나타내기 위한 적합한 데이터베이스는?
+- 그렇다면 Json 구조를 저장하고 조회하기 위한 적합한 데이터베이스는?
   - 바로 NoSQL이었습니다.
 - NoSQL에서 이전에 사용해본 경험이 있고 일정 용량 Cloud를 무료로 사용할 수 있는 MongoDB를 선택했습니다.
   - Spring Data MongoDB를 사용하면 기존 Spring Data JPA와 유사한 방식으로 사용할 수 있어 생산성이 높아질 것이라는 생각도 한 가지 이유였습니다.
 
 ### Action.
-- Documents로 구현된 디렉토리 - 메모 구조
+- 도메인 클래스에 @Document를 활용해서 **컬렉션 도큐먼트**를 만들어주었습니다.
     - MemoStore: 사용자별로 딱 하나 가지고 있는 **루트 디렉토리 도큐먼트**
+    - Directory: 디렉토리와 메모 도큐먼트 **컬렉션**을 가지고 있는 도큐먼트
+    - Memo: 메모 도큐먼트
+- MongoDB 컬렉션의 객체는 **ObjectId(RDB의 PK와 같은 개념)** 를 가져야하기 때문에 *`org.springframework.data.annotation.Id`* 의 **@ID**를 사용했습니다.
 
 ### Result.
-- 복잡하지 않고 자연스럽게 구현된 디렉토리 - 메모 구조
+- 복잡하지 않고 자연스럽게 구현된 디렉토리 - 메모 트리 구조
+![memostore-response](https://github.com/soonhankwon/gold-digger-api/assets/113872320/14389fc5-eafe-4b62-b4bf-9e255ae298a6) 
 - 모든 API를 ObjectId를 파라미터로 사용하게 함으로써 조회시 불필요한 탐색 방지
 - 프론트엔드에서의 API 활용도
-    - 메인 MemoStore 조회 API를 기반으로 부가적인 API를 사용하도록 설계함으로써 API를 활용하기 쉬웠다는 피드백을 받았습니다.
+  - 메인 MemoStore 조회 API를 기반으로 부가적인 API를 사용하도록 설계함으로써 API를 활용하기 쉬웠다는 피드백을 받았습니다.
 
 ### MongoDB에서 도큐먼트간의 연관관계를 어떻게 구현해야할까?
 ---
