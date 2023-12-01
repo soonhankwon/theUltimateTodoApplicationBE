@@ -89,7 +89,7 @@
 <br/>
 
 ## 핵심문제 해결과정 및 전략
-### 디렉토리 - 메모 트리 구조를 어떻게 구현해야 효율적일까?
+## 디렉토리 - 메모 트리 구조를 어떻게 구현해야 효율적일까?
 ---
 ### Story.
 ---
@@ -184,16 +184,16 @@
 - 프론트엔드에서의 API 활용도
   - 메인 MemoStore 조회 API를 기반으로 부가적인 API를 사용하도록 설계함으로써 API를 활용하기 쉬웠다는 피드백을 받았습니다.
 
-### MongoDB에서 도큐먼트간의 연관관계를 어떻게 구현해야할까?
+## MongoDB에서 도큐먼트간의 연관관계를 어떻게 구현해야할까?
 ---
-## Story.
+### Story.
 ---
 - Spring Data JPA에서는 @OneToOne, @OneToMany, @ManyToOne 등의 애노테이션을 통해 연관관계를 설정할 수 있었습니다.
 - 하지만 Spring Data MongoDB는 처음 사용해보는 상황이었고 Directory에 연관된 Directory와 Memo를 모두 조회할 수 있어야 했습니다.
 - 레퍼런스 검색 결과 MongoDB의 연관관계 설정 방법은?
     - **@DBRef** 애노테이션을 사용하는 것 입니다.
 
-## Action.
+### Action.
 ---
 - 요구사항을 구현하기 위해서는 1:N 관계를 만들어줘야 했습니다.
     - 디렉토리는 여러 디렉토리와 여러 메모를 가지고 있다.
@@ -222,13 +222,13 @@
   </div>
   </details>
         
-## Result.
+### Result.
 ---
 - **@DBRef**를 활용한 **연관관계 설정**으로 디렉토리와 메모를 **조회, 생성, 드래그 앤 드랍** 시 이상없이 **연관된 객체들을 조회, 생성, 삭제** 할 수 있었습니다.
 
-### MongoDB(NoSQL)에서 인덱스는 어떤식으로 만들며 적용해야할까?
+## MongoDB(NoSQL)에서 인덱스는 어떤식으로 만들며 적용해야할까?
 ---
-## Story.
+### Story.
 ---
 - 메모 서비스를 사용하는데 가장 중요한 객체는 **MemoStore** 였습니다.
     - MemoStore: 유저의 메모 저장소이며 모든 API가 해당 객체를 기반으로 작동 (**Master Table**이라고 생각할 수 있다.)
@@ -238,7 +238,7 @@
 - 그렇다면 email을 인덱스로 만들어주면 좋겠는데, **MongoDB에서는 어떻게 하지?**
     - **@Indexed** 애노테이션을 사용해 인덱스를 만들어줄 수 있었습니다.
 
-## Action.
+### Action.
 ---
 - 간단하게 인덱스를 생성할 수 있겠다고 기대했었다, 하지만
   <details>
@@ -268,14 +268,14 @@
 spring.data.mongodb.auto-index-creation=true
 ```
 
-## Result.
+### Result.
 ---
 - 성공적으로 email 인덱스를 생성했습니다.
 ![memostore-index](https://github.com/soonhankwon/gold-digger-api/assets/113872320/7280dc99-8e73-45fc-9870-2e788ee0e9b7)
 - 인덱스 미적용시 평균 76ms → 적용시 평균 65ms
 - 개선율은 평균적으로 `13.16%`을 보였습니다.
 
-### MongoDB를 사용한 TO-DO 도메인 MySQL로 마이그레이션 이슈
+## MongoDB를 사용한 TO-DO 도메인 MySQL로 마이그레이션 이슈
 ---
 
 ## TEAM PROJECT6S
