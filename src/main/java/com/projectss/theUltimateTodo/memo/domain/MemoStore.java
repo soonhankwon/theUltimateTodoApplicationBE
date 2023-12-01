@@ -20,7 +20,7 @@ public class MemoStore {
     @Id
     private String id;
 
-    @Indexed
+    @Indexed(unique = true)
     private String email;
 
     @DBRef
