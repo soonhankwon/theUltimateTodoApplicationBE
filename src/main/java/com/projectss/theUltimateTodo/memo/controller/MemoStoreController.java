@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/memo-stores2")
+@RequestMapping("/api/memo-stores")
 @Tag(name = "메모 최상위 루트(구조) 조회 API")
 public class MemoStoreController {
 
